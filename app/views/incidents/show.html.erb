@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">Detalhes</div>
+  <div class="panel-body">
+    <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>ID do Incidente</th>
+          <th>Título do problema</th>
+          <th>Descrição do problema</th>
+          <th>Email do Usuário Afetado</th>
+          <th>Nível de prioridade</th>
+          <th>Reportador por</th>
+          <th>Status do Incidente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @incident.id %></td>
+          <td><%= @incident.title %></td>
+          <td><%= @incident.description %></td>
+          <td><%= @incident.user_email %></td>
+          <td><%= @incident.priority_level %></td>
+          <td><%= @incident.backofficer.name %></td><td>
+          <td><%= @incident.status %></td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<%= link_to 'Editar dados do incident', edit_incident_path(@incident), class: "btn btn-default" %>
+</br>
+<%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
