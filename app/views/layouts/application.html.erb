@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BackofficerIncident</title>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-    <%= yield %>
+  <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="container">
+      <% if signed_in? %>
+        <span class='nav navbar-brand'><%= link_to "thinkseg", incidents_path, class: "logo" %></span>
+        <ul class="nav navbar-nav pull-right">
+        <li class="nav-item"><%= link_to "Meus Incidentes", incident_path(check_user) %></li>
+        <li class="nav-item"><%= link_to "Meus Dados", edit_registration_path(check_user) %></li>
+        <li class="nav-item"><%= link_to "Sobre", incidents_path %></li>
+        <li class="nav-item"><%= link_to "Sair", destroy_session_path(check_user), method: "delete" %></li>
+        <% else %>
+          <span class='nav navbar-brand'><%= link_to "thinkseg", incidents_path, class: "logo" %></span>
+          <li class="nav-item"><%= link_to "Cadastrar", new_backofficer_registration_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Login", new_backofficer_session_path, class: "nav-link" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  <%= yield %>
   </body>
 </html>

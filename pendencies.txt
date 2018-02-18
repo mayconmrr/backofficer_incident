@@ -1,0 +1,16 @@
+Backofficer:
+Script de Atendimento
+Avatar Foto
+
+Analyst:
+Meus Atendimentos
+Atender Chamado
+Base de Conhecimento (analise detalhada do problema solucionado)
+Avatar Foto
+
+General:
+Will Paginate
+busca de chamado por descricao email ou titulo
+colocar filtros para organizar chamados
+Validar dados abertura de incidente
+Linkar com Slack

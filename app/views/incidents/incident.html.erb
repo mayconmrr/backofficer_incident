@@ -1,0 +1,56 @@
+<div class="panel panel-primary">
+  <div class="panel-heading"><h3>Listagem de Incidentes</h3></div>
+</div>
+
+<div class="basic-grey">
+  <table>
+    <thead>
+    <tr>
+      <th>Resumo do Problema</th>
+      <th>Nível de Criticidade</th>
+      <th>Status do Incidente</th>
+      <th>Reportador por</th>
+      <th>Solucionador</th>
+      <th>Ações</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @incidents.each do |incident| %>
+      <tr style= "background: <%= cycle('white', 'ice') %>">
+        <td><%= incident.title %></td>
+        <td><%= incident.priority_level %></td>
+        <td><%= incident.status %></td>
+        <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
+        <% if incident.analyst.blank? %>
+          <td><%= 'Sem atendimento' %> </td>
+        <% else %>
+          <td><%= incident.analyst.name %> </td>
+        <% end %>
+
+        <% if backofficer_signed_in? %>
+          <td><%= link_to 'Ver Chamado', edit_incident_path(incident), class: "btn btn-primary"%></td>
+          <% if incident.status == 'open' || incident.status == 'reopened' %>
+            <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
+          <% elsif incident.status == 'solved' %>
+            <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-success" %></td>
+            <td><%= link_to 'Ver Solução', edit_incident_path(incident), class: "btn btn-default" %></td>
+          <% elsif incident.status == 'closed' %>
+            <td><%= link_to 'Ver Solução', edit_incident_path(incident), class: "btn btn-default" %></td>
+          <% end %>
+        <% else %>
+          <td><%= link_to 'Iniciar Análise', incident, class: "btn btn-success" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+</br>
+<% if backofficer_signed_in? %>
+  <td><%= link_to 'Novo Incidente', new_incident_path, class: "btn btn-success" %></td>
+<% end %>
+
+
+

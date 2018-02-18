@@ -18,7 +18,6 @@ class Incident < ApplicationRecord
   }.with_indifferent_access
   enum priority_level: PRIORITY_LEVELS
 
-
   STATUSES_INCIDENT = {
     open: 0,
     solved: 1,
@@ -29,15 +28,3 @@ class Incident < ApplicationRecord
   enum status: STATUSES_INCIDENT
 
 end
-
-# STATUSES = {
-#     invited: 0,
-#     registered: 1,
-#     personal_data_filled: 2,
-#     document_data_sent: 3,
-#     operational: 90
-# }.with_indifferent_access
-#
-#
-# enum onboarding_status: STATUSES
-

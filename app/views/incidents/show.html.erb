@@ -24,7 +24,6 @@
           <td><%= @incident.priority_level %></td>
           <td><%= @incident.backofficer.name %></td><td>
           <td><%= @incident.status %></td>
-
         </tr>
       </tbody>
     </table>
@@ -32,7 +31,10 @@
 </div>
 
 <hr>
-
-<%= link_to 'Editar dados do incident', edit_incident_path(@incident), class: "btn btn-default" %>
+<% if backofficer_signed_in? %>
+  <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
+<% elsif analyst_signed_in? %>
+  <%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
+<% end %>
 </br>
-<%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
+<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-default" %>

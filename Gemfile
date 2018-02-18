@@ -16,6 +16,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'rails-i18n', '~> 5.1'
+gem 'pry', '~> 0.11.3'
+gem 'pry-rails', '~> 0.3.6'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
