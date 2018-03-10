@@ -1,19 +1,22 @@
 class IncidentsController < ApplicationController
   before_action :set_incident, only: [:update, :edit, :destroy, :show]
-  before_action :authenticate_backofficer!
+  before_action :authenticate_user
   include UserHelper
 
   def show
     @incident = Incident.find(params[:id])
   end
 
-  def incident
-    #binding.pry
-    @incidents = check_user.incidents
+  def my_incidents
+    if backofficer_signed_in?
+      @my_incidents = Incident.where(backofficer_id: current_backofficer).paginate(:page => params[:page], :per_page => 10)
+    else
+      @my_incidents = Incident.where(analyst_id: current_analyst).paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def index
-    @incidents = Incident.all
+    @incidents = Incident.all.paginate(:page => params[:page], :per_page => 10)
   end
 
   def new
@@ -68,7 +71,17 @@ class IncidentsController < ApplicationController
     params.require(:incident).permit(:problem_kind, :priority_level,
                                      :description, :user_email, :title,
                                      :status, :solution_description,
-                                     :analysis_time, :solution_time)
+                                     :analysis_time, :solution_time, :evidence_screen)
+  end
+
+  def authenticate_user
+    if check_user .class.name == "Backofficer"
+      :authenticate_backofficer!
+    elsif check_user .class.name == "Analyst"
+      :endauthenticate_analyst!
+    else
+      redirect_to new_backofficer_registration_path
+    end
   end
 end
 

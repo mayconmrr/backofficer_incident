@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218120009) do
+ActiveRecord::Schema.define(version: 20180304162942) do
 
   create_table "analysts", force: :cascade do |t|
     t.string "name"
@@ -63,6 +63,10 @@ ActiveRecord::Schema.define(version: 20180218120009) do
     t.string "entity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "evidence_screen_file_name"
+    t.string "evidence_screen_content_type"
+    t.integer "evidence_screen_file_size"
+    t.datetime "evidence_screen_updated_at"
     t.index ["analyst_id"], name: "index_incidents_on_analyst_id"
     t.index ["backofficer_id"], name: "index_incidents_on_backofficer_id"
   end

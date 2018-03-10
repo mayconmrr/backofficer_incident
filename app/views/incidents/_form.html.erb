@@ -4,23 +4,36 @@
       <div class="panel-heading">
       </div>
       <div class="panel-body">
-        <%= form_for(@incident) do |f| %>
+        <%= form_for @incident, html: { multipart: true } do |f| %>
           <div class="form-group">
             <%= f.label :title, class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :title, autofocus: true, class:"form-control", placeholder:"Usuario X com problema para ativar cobertura" %>
             </div>
           </div>
+
           <div class="form-group">
             <%= f.label :priority_level, class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.select :priority_level, Incident::PRIORITY_LEVELS.keys, { prompt: "Selecione o nível de criticidade do incidente" }, { class: "form-control"} %>
             </div>
           </div>
+
           <div class="form-group">
             <%= f.label :description, class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :description, autofocus: true, class:"form-control", placeholder:"Ex: O usúario x não consegue efetuar a opção y na tela z" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <%= f.label :evidence_screen, class:"col-md-3 control-label" %>
+                <div class="col-md-9">
+                  <%= f.file_field :evidence_screen, as: :file %>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -41,4 +54,3 @@
     </div>
   </div>
 </div>
-

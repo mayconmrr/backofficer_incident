@@ -1,29 +1,51 @@
-<h2>Sign up</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading"><h3>Cadastrar Analista</h3></div>
+</div>
+</br>
+<div class="container">
+  <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+      </div>
+      <div class="panel-body">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+          <div class="field">
+            <%= f.label :Nome, class:"col-md-3 control-label" %><br />
+            <%= f.email_field :name, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :Email, class:"col-md-3 control-label" %><br />
+            <%= f.email_field :email, class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :Senha, class:"col-md-3 control-label" %><br />
+            <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :Confirmar_Senha, class:"col-md-6 control-label" %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-12">
+              <%= f.submit "Registar", class:"btn btn-info" do %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "analysts/shared/links" %>
+<div class="centered">
+  <%- if controller_name != 'sessions' %>
+    <%= link_to "Fazer Log in", new_session_path(resource_name), class: "btn btn-success" %><br />
+  <% end -%>
+</div>

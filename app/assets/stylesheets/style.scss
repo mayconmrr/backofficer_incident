@@ -1,0 +1,95 @@
+body, html {
+  height: 100%;
+}
+
+[class^="pg-"], [class*=" pg-"]{
+  line-height: inherit;
+}
+
+.page-sidebar .sidebar-menu .menu-items li a{
+  line-height:47px;
+}
+
+.fa{
+  line-height: inherit;
+}
+
+#show-gmaps label {
+  width: auto; display:inline;
+}
+
+.logo {
+  height: 200%;
+  margin-left: 50px;
+}
+
+.navbar-default {
+  margin-bottom: 0px;
+}
+
+.navbar-right {
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  position: static;
+  bottom: 0;
+}
+
+#login-hero {
+  background-image: image_url("backofficer-header");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 75%;
+}
+
+.login-area {
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.datagrid {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+
+.table thead tr th {
+  text-align: center;
+}
+
+.table tbody tr td {
+  text-align: center;
+}
+
+.datagrid-form {
+  margin-top: 50px;
+}
+
+.datagrid-info {
+  margin-top: 30px;
+}
+
+.customer-profile {
+  width: 100%;
+}
+
+.nav-tabs li a {
+  background-color: #0C54A5;
+  border-color: #09407D;
+  color:#fff;
+}
+
+.nav-tabs li.active a, .nav-tabs li.active a:hover, .nav-tabs li.active a:focus {
+  color: #fff;
+  background-color: #09407D;
+  border: 1px solid #71A1D6;
+}
+
+.nav-tabs li a:hover {
+  border-color: #71A1D6;
+  background-color: #0C54A5;
+}

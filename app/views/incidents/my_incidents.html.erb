@@ -1,6 +1,13 @@
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3>Listagem de Incidentes</h3></div>
+  <div class="panel-heading"><h3>Incidentes de <%= check_user.name %></h3></div>
 </div>
+
+<% if backofficer_signed_in? %>
+  <div class="centered">
+    <td><%= link_to 'Novo Incidente', new_incident_path, class: "btn btn-success" %></td>
+  </div>
+  <br />
+<% end %>
 
 <div class="basic-grey">
   <table>
@@ -8,21 +15,26 @@
     <tr>
       <th>Resumo do Problema</th>
       <th>Nível de Criticidade</th>
+      <th>Aberto Em</th>
+      <th>Última Atualização</th>
       <th>Status do Incidente</th>
-      <th>Reportador por</th>
-      <th>Solucionador</th>
+      <% if backofficer_signed_in? %>
+        <th>Solucionador</th>
+      <% else %>
+        <th>Relatado por</th>
+      <% end %>
       <th>Ações</th>
       <th colspan="3"></th>
     </tr>
     </thead>
-
     <tbody>
-    <% @incidents.each do |incident| %>
+    <% @my_incidents.each do |incident| %>
       <tr style= "background: <%= cycle('white', 'ice') %>">
         <td><%= incident.title %></td>
         <td><%= incident.priority_level %></td>
+        <td><%= brazil_date(incident.created_at) %></td>
+        <td><%= brazil_date(incident.updated_at) %></td>
         <td><%= incident.status %></td>
-        <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
         <% if incident.analyst.blank? %>
           <td><%= 'Sem atendimento' %> </td>
         <% else %>
@@ -30,7 +42,7 @@
         <% end %>
 
         <% if backofficer_signed_in? %>
-          <td><%= link_to 'Ver Chamado', edit_incident_path(incident), class: "btn btn-primary"%></td>
+          <td><%= link_to 'Ver Chamado', incident, class: "btn btn-primary"%></td>
           <% if incident.status == 'open' || incident.status == 'reopened' %>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
           <% elsif incident.status == 'solved' %>
@@ -48,9 +60,8 @@
   </table>
 </div>
 </br>
-<% if backofficer_signed_in? %>
-  <td><%= link_to 'Novo Incidente', new_incident_path, class: "btn btn-success" %></td>
-<% end %>
+<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
+
 
 
 

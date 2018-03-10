@@ -1,15 +1,24 @@
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3>Listagem de Incidentes</h3></div>
+  <div class="panel-heading" ><h3>Listagem de Incidentes</h3></div>
 </div>
+<% if backofficer_signed_in? %>
+  <div class="centered">
+    <td><%= link_to 'Novo Incidente', new_incident_path, class: "btn btn-success" %></td>
+  </div>
+  <br />
+<% end %>
 
-<div class="basic-grey">
+<div class="basic-grey" align="center">
   <table>
+
     <thead>
     <tr>
       <th>Resumo do Problema</th>
       <th>Nível de Criticidade</th>
       <th>Status do Incidente</th>
       <th>Reportador por</th>
+      <th>Aberto Em</th>
+      <th>Última Atualização</th>
       <th>Solucionador</th>
       <th>Ações</th>
       <th colspan="3"></th>
@@ -23,6 +32,9 @@
         <td><%= incident.priority_level %></td>
         <td><%= incident.status %></td>
         <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
+
+        <td><%= brazil_date(incident.created_at) %></td>
+        <td><%= brazil_date(incident.updated_at) %></td>
         <% if incident.analyst.blank? %>
           <td><%= 'Sem atendimento' %> </td>
         <% else %>
@@ -30,7 +42,7 @@
         <% end %>
 
         <% if backofficer_signed_in? %>
-          <td><%= link_to 'Ver Chamado', edit_incident_path(incident), class: "btn btn-primary"%></td>
+          <td><%= link_to 'Ver Chamado', incident, class: "btn btn-primary"%></td>
           <% if incident.status == 'open' || incident.status == 'reopened' %>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
           <% elsif incident.status == 'solved' %>
@@ -47,10 +59,7 @@
     </tbody>
   </table>
 </div>
-</br>
-  <% if backofficer_signed_in? %>
-    <td><%= link_to 'Novo Incidente', new_incident_path, class: "btn btn-success" %></td>
-  <% end %>
+<div class="panel-heading" align="center"><%= will_paginate @incidens %></div>
 
 
 

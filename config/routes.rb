@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :backofficers
   resources :incidents
 
-  get 'incident', to: 'incidents#incident'
+  get 'my_incidents', to: 'incidents#my_incidents'
 
   root 'incidents#index'
 end

@@ -7,11 +7,11 @@
       <thead>
         <tr>
           <th>ID do Incidente</th>
-          <th>Título do problema</th>
-          <th>Descrição do problema</th>
+          <th>Título do Problema</th>
           <th>Email do Usuário Afetado</th>
-          <th>Nível de prioridade</th>
-          <th>Reportador por</th>
+          <th>Nível de Prioridade</th>
+          <th>Reportador Por</th>
+          <th>Aberto Em</th>
           <th>Status do Incidente</th>
         </tr>
       </thead>
@@ -19,22 +19,37 @@
         <tr>
           <td><%= @incident.id %></td>
           <td><%= @incident.title %></td>
-          <td><%= @incident.description %></td>
           <td><%= @incident.user_email %></td>
           <td><%= @incident.priority_level %></td>
-          <td><%= @incident.backofficer.name %></td><td>
+          <td><%= @incident.backofficer.name %></td>
+          <td><%= brazil_date(@incident.created_at)  %></td>
           <td><%= @incident.status %></td>
         </tr>
       </tbody>
     </table>
-  </div>
+
+  <div class="col-md-6">
+
+      <h4>Descrição do Problema</h4>
+      <br />
+      <%= @incident.description %>
+    </div>
+    <div class="col-md-6">
+      <h4>Tela de Evidência</h4>
+      <br />
+      <%=  image_tag @incident.evidence_screen.url(:medium) %>
+    </div>
+</div>
 </div>
 
 <hr>
-<% if backofficer_signed_in? %>
-  <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
-<% elsif analyst_signed_in? %>
-  <%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
-<% end %>
-</br>
-<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-default" %>
+
+<div class="text-center">
+  <% if backofficer_signed_in? %>
+    <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
+  <% elsif analyst_signed_in? %>
+    <%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
+  <% end %>
+</div>
+<br /> <br />
+<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
