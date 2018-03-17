@@ -1,6 +1,7 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:update, :edit, :destroy, :show]
+  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse]
   before_action :authenticate_user
+  before_action :authenticate_analyst!, only: [:analyse]
   include UserHelper
 
   def show
@@ -48,7 +49,7 @@ class IncidentsController < ApplicationController
         format.json { render :show, status: :ok }
       else
         format.html { render :new }
-        format.json { render json: @incident.errors, status: :unprocessable_entity }
+        format.json { render json: @incident.errors, status: :unprocessable_9y }
       end
     end
   end
@@ -56,31 +57,41 @@ class IncidentsController < ApplicationController
   def destroy
     @incident.destroy
     respond_to do |format|
-      format.html { redirect_to root, notice: 'Incident was successfully destroyed.'}
+      format.html { redirect_to root, notice: 'Incident was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def analyse
+    @incident.update(status: 4, analyst: current_analyst, analysis_started_at: DateTime.now)
+    redirect_to @incident
   end
 
   private
 
   def set_incident
-    @incident = Incident.find(params[:id])
+    if params[:id].present?
+      @incident = Incident.find(params[:id])
+    else
+      @incident = Incident.find(params[:incident_id])
+    end
   end
 
   def incident_params
-    params.require(:incident).permit(:problem_kind, :priority_level,
-                                     :description, :user_email, :title,
+    params.require(:incident).permit(:problem_kind, :priority_level, :analyst_id,
+                                     :problem_description, :user_email, :title,
                                      :status, :solution_description,
-                                     :analysis_time, :solution_time, :evidence_screen)
+                                     :analysis_time, :solution_time, :entity,
+                                     :evidence_screen, :pending_description)
   end
 
   def authenticate_user
     if check_user .class.name == "Backofficer"
       :authenticate_backofficer!
     elsif check_user .class.name == "Analyst"
-      :endauthenticate_analyst!
+      :authenticate_analyst!
     else
-      redirect_to new_backofficer_registration_path
+      redirect_to new_backofficer_session_path
     end
   end
 end

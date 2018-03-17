@@ -10,7 +10,6 @@
 
 <div class="basic-grey" align="center">
   <table>
-
     <thead>
     <tr>
       <th>Resumo do Problema</th>
@@ -19,8 +18,7 @@
       <th>Reportador por</th>
       <th>Aberto Em</th>
       <th>Última Atualização</th>
-      <th>Solucionador</th>
-      <th>Ações</th>
+      <th>Analista</th>
       <th colspan="3"></th>
     </tr>
     </thead>
@@ -42,17 +40,29 @@
         <% end %>
 
         <% if backofficer_signed_in? %>
-          <td><%= link_to 'Ver Chamado', incident, class: "btn btn-primary"%></td>
           <% if incident.status == 'open' || incident.status == 'reopened' %>
+            <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
           <% elsif incident.status == 'solved' %>
-            <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-success" %></td>
-            <td><%= link_to 'Ver Solução', edit_incident_path(incident), class: "btn btn-default" %></td>
+            <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+            <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-danger" %></td>
           <% elsif incident.status == 'closed' %>
-            <td><%= link_to 'Ver Solução', edit_incident_path(incident), class: "btn btn-default" %></td>
+            <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
+            <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
+
+          <% elsif incident.status == 'analysing' %>
+            <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+            <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
           <% end %>
         <% else %>
-          <td><%= link_to 'Iniciar Análise', incident, class: "btn btn-success" %></td>
+          <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+          <% if incident.status == 'open' %>
+            <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
+          <% elsif incident.status == 'analysing' %>
+            <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+            <% elsif incident.status == 'solved' %>
+            <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

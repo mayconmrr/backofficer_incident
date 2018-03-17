@@ -51,16 +51,18 @@ ActiveRecord::Schema.define(version: 20180304162942) do
   create_table "incidents", force: :cascade do |t|
     t.integer "analyst_id"
     t.integer "backofficer_id"
-    t.integer "problem_kind", default: 0
+    t.integer "problem_kind"
     t.integer "priority_level", default: 0
-    t.string "description"
+    t.string "problem_description"
+    t.string "pending_description"
     t.string "user_email"
     t.string "title"
     t.integer "status", default: 0
     t.string "solution_description"
     t.string "analysis_time"
-    t.string "solution_time"
-    t.string "entity"
+    t.datetime "analysis_started_at"
+    t.datetime "solved_at"
+    t.integer "entity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "evidence_screen_file_name"

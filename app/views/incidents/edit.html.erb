@@ -1,6 +1,9 @@
-<div class="panel panel-primary">
-  <div class="panel-heading"><h3>Editar dados do Incidente</h3></div>
-</div>
-
-<%= render 'form', incident: @incident %>
-<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
+<% if backofficer_signed_in? %>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><h3>Editar dados do Incidente</h3></div>
+  </div>
+  <%= render 'form', incident: @incident %>
+  <%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
+<% else %>
+  <%= render 'solve_form', incident: @incident %>
+<% end %>

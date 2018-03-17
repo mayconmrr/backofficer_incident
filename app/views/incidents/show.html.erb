@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <div class="panel panel-primary">
   <div class="panel-heading">Detalhes</div>
   <div class="panel-body">
@@ -32,7 +30,7 @@
 
       <h4>Descrição do Problema</h4>
       <br />
-      <%= @incident.description %>
+      <%= @incident.problem_description %>
     </div>
     <div class="col-md-6">
       <h4>Tela de Evidência</h4>
@@ -48,8 +46,23 @@
   <% if backofficer_signed_in? %>
     <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
   <% elsif analyst_signed_in? %>
-    <%= link_to 'Iniciar Análise', edit_incident_path(@incident), class: "btn btn-default" %>
+    <% if @incident.status == 'open'%>
+      <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger" %>
+      <%= "  |  " %>
+      <%= link_to 'Resolver Incidente', edit_incident_path(@incident), class: "btn btn-success disabled", :disabled => true %>
+    <% elsif @incident.status == 'analysing' && @incident.analyst_id == current_analyst.id %>
+      <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
+      <%= "  |  " %>
+      <%= link_to 'Resolver Incidente', edit_incident_path(@incident), class: "btn btn-success" %>
+    <% else %>
+      <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
+    <% end %>
+    <% if @incident.status == 'closed' || @incident.status == 'solved' %>
+      <%= "  |  " %>
+      <%= link_to 'Resolver Incidente', edit_incident_path(@incident), class: "btn btn-success disabled", :disabled => true %>
+    <% end %>
   <% end %>
 </div>
-<br /> <br />
+<br />
+<br />
 <%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
