@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180408131055) do
     t.string "plataform_kind"
     t.string "captured_by"
     t.string "pending_reason"
+    t.string "reopening_description"
     t.index ["analyst_id"], name: "index_incidents_on_analyst_id"
     t.index ["backofficer_id"], name: "index_incidents_on_backofficer_id"
   end

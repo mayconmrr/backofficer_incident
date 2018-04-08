@@ -1,7 +1,8 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture]
+  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen_form]
   before_action :authenticate_user
   before_action :authenticate_analyst!, only: [:analyse, :solve_form, :capture]
+  before_action :check_to_reopen, only: [:reopen_form]
   include UserHelper
 
   def show
@@ -77,12 +78,15 @@ class IncidentsController < ApplicationController
 
   def pending_form
     @incident = Incident.find(params[:id])
-    redirect_to @incident unless check_to_solve
   end
 
   def capture
     @incident.update(analyst_id: current_analyst.id, captured_by: current_analyst.name)
     redirect_to @incident
+  end
+
+  def reopen_form
+    @incident = Incident.find(params[:id])
   end
 
   def search
@@ -92,7 +96,11 @@ class IncidentsController < ApplicationController
   private
 
   def set_incident
-    @incident = Incident.find(params[:incident_id]) unless @incident = Incident.find(params[:id])
+    if params[:id].present?
+      @incident = Incident.find(params[:id])
+    else
+      @incident = Incident.find(params[:incident_id])
+    end
   end
 
   def incident_params
@@ -101,7 +109,8 @@ class IncidentsController < ApplicationController
                                      :status, :solution_description,
                                      :analysis_time, :solution_time, :entity,
                                      :evidence_screen, :pending_description,
-                                     :user_cpf, :contract_id, :plataform_kind)
+                                     :user_cpf, :contract_id, :plataform_kind,
+                                     :reopening_description)
   end
 
   def authenticate_user
@@ -116,6 +125,12 @@ class IncidentsController < ApplicationController
 
   def check_to_solve
     @incident.status == 'analysing' && @incident.analyst_id == current_analyst.id
+  end
+
+  def check_to_reopen
+    redirect_to @incident unless
+
+    @incident.status == 'solved' && authenticate_analyst!
   end
 end
 
