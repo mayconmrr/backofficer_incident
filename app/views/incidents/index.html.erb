@@ -49,20 +49,24 @@
           <% elsif incident.status == 'closed' %>
             <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
-
           <% elsif incident.status == 'analysing' %>
             <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
+          <% elsif incident.status == 'pending' %>
+            <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+            <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary" %></td>
           <% end %>
         <% else %>
           <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
           <% if incident.status == 'open' %>
             <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
-          <% elsif incident.status == 'analysing' %>
-            <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
-            <% elsif incident.status == 'solved' %>
-            <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
-          <% end %>
+            <% elsif incident.status == 'analysing' %>
+              <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+          <% elsif incident.status == 'pending' %>
+            <td><%= link_to 'Reiniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
+          <% elsif incident.status == 'solved' %>
+              <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+            <% end %>
         <% end %>
       </tr>
     <% end %>

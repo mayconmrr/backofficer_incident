@@ -1,7 +1,7 @@
 class IncidentsController < ApplicationController
   before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture]
   before_action :authenticate_user
-  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture]
+  before_action :authenticate_analyst!, only: [:analyse, :solve_form, :capture]
   include UserHelper
 
   def show
@@ -71,6 +71,11 @@ class IncidentsController < ApplicationController
   end
 
   def solve_form
+    @incident = Incident.find(params[:id])
+    redirect_to @incident unless check_to_solve
+  end
+
+  def pending_form
     @incident = Incident.find(params[:id])
     redirect_to @incident unless check_to_solve
   end

@@ -53,6 +53,12 @@ class Incident < ApplicationRecord
   }.with_indifferent_access
   enum plataform_kind: PLATAFORM
 
+  PENDING = {
+      supplier_block: 0,
+      information_missing: 1
+  }.with_indifferent_access
+  enum pending_reason: PENDING
+
   private
 
   def solve_params
