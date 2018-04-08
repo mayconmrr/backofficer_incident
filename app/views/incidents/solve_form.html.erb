@@ -1,0 +1,90 @@
+<%= form_for @incident, html: { multipart: true } do |f| %>
+
+    <div class="panel panel-primary">
+  <div class="panel-heading">Resumo do Incidente</div>
+  <div class="panel-body">
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th>ID do Incidente</th>
+        <th>Título do Problema</th>
+        <th>Email do Usuário Afetado</th>
+        <th>Nível de Prioridade</th>
+        <th>Reportador Por</th>
+        <th>Aberto Em</th>
+        <th>Status do Incidente</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @incident.id %></td>
+        <td><%= @incident.title %></td>
+        <td><%= @incident.user_email %></td>
+        <td><%= @incident.priority_level %></td>
+        <td><%= @incident.backofficer.name %></td>
+        <td><%= brazil_date(@incident.created_at)  %></td>
+        <td><%= @incident.status %></td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="col-md-6">
+      <h4>Descrição do Problema</h4>
+      <br />
+      <%= @incident.problem_description %>
+    </div>
+    <div class="col-md-6">
+      <h4>Tela de Evidência</h4>
+      <br />
+      <%=  image_tag @incident.evidence_screen.url(:medium) %>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">Resolução de Incidente</div>
+</div>
+
+  <div class="container">
+    <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+              <%= f.label :Tipo, class:"col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.select :problem_kind, Incident::PROBLEM_KINDS.keys, { prompt: "Selecione o tipo de problema do incidente" }, { class: "form-control"} %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :Contexto, class:"col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.select :entity, Incident::ENTITY.keys, { prompt: "Selecione o escopo do problema" }, { class: "form-control"} %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :Análise, class:"col-md-3 control-label" %>
+              <div class="col-md-9">
+                <%= f.text_area :solution_description, class:"form-control", placeholder:"Foi efetuado a alteração do email do usuário x" %>
+              </div>
+            </div>
+
+            <%= f.hidden_field :status, value: 'solved' %>
+            <%= f.hidden_field :analyst_id, value: current_analyst.id %>
+
+            <div class="form-group">
+              <div class="col-md-offset-3 col-md-9">
+                <%= f.submit "Resolver Incidente", class:"btn btn-success" do %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<hr>
+<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>

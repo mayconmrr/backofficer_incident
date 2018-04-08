@@ -37,14 +37,21 @@ class Incident < ApplicationRecord
   enum status: STATUSES_INCIDENT
 
   ENTITY = {
-    contract: 0,
-    customer: 1,
-    backofficer: 2,
-    broker: 3,
-    claim: 4,
-    assistence: 5,
-    other: 90
+      contract: 0,
+      customer: 1,
+      backofficer: 2,
+      broker: 3,
+      claim: 4,
+      assistence: 5,
+      other: 90
   }.with_indifferent_access
+  enum entity: ENTITY
+
+  PLATAFORM = {
+    app: 0,
+    web: 1
+  }.with_indifferent_access
+  enum plataform_kind: PLATAFORM
 
   private
 
@@ -52,7 +59,7 @@ class Incident < ApplicationRecord
     if self.status == 'solved'
       self.solved_at = DateTime.now
       unless self.analysis_started_at.nil?
-        self.analysis_time = (solved_at - self.analysis_started_at).to_s.to_time.strftime("%H:%M:%S")
+        self.analysis_time = TimeDifference.between(self.solved_at.to_time, self.created_at.to_time).humanize
       end
     end
   end

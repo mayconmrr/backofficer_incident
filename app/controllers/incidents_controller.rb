@@ -1,11 +1,10 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse]
+  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture]
   before_action :authenticate_user
-  before_action :authenticate_analyst!, only: [:analyse]
+  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture]
   include UserHelper
 
   def show
-    @incident = Incident.find(params[:id])
   end
 
   def my_incidents
@@ -40,30 +39,44 @@ class IncidentsController < ApplicationController
   end
 
   def edit
+    #
   end
 
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
-        format.json { render :show, status: :ok }
+        if @incident.status == 'solved'
+        format.html { redirect_to @incident, notice: 'Incident was successfully solved.' }
+        elsif @incident.status == 'reopened'
+          format.html { redirect_to @incident, notice: 'Incident was successfully reopened.' }
+        else
+          format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
+        end
+          format.json { render :show, status: :ok }
       else
         format.html { render :new }
-        format.json { render json: @incident.errors, status: :unprocessable_9y }
+        format.json { render json: @incident.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
     @incident.destroy
-    respond_to do |format|
-      format.html { redirect_to root, notice: 'Incident was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    format.html { redirect_to root, notice: 'Incident was successfully destroyed.' }
   end
 
   def analyse
     @incident.update(status: 4, analyst: current_analyst, analysis_started_at: DateTime.now)
+    redirect_to @incident
+  end
+
+  def solve_form
+    @incident = Incident.find(params[:id])
+    redirect_to @incident unless check_to_solve
+  end
+
+  def capture
+    @incident.update(analyst_id: current_analyst.id, captured_by: current_analyst.name)
     redirect_to @incident
   end
 
@@ -82,17 +95,22 @@ class IncidentsController < ApplicationController
                                      :problem_description, :user_email, :title,
                                      :status, :solution_description,
                                      :analysis_time, :solution_time, :entity,
-                                     :evidence_screen, :pending_description)
+                                     :evidence_screen, :pending_description,
+                                     :user_cpf, :contract_id, :plataform_kind)
   end
 
   def authenticate_user
-    if check_user .class.name == "Backofficer"
+    if check_user.class.name == "Backofficer"
       :authenticate_backofficer!
-    elsif check_user .class.name == "Analyst"
+    elsif check_user.class.name == "Analyst"
       :authenticate_analyst!
     else
       redirect_to new_backofficer_session_path
     end
+  end
+
+  def check_to_solve
+    @incident.status == 'analysing' && @incident.analyst_id == current_analyst.id
   end
 end
 

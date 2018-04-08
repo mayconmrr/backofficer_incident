@@ -27,6 +27,7 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'paperclip', '~> 5.2.1'
 gem 'paperclip-i18n'
+gem 'time_difference'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

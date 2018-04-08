@@ -14,11 +14,11 @@
     <tr>
       <th>Resumo do Problema</th>
       <th>Nível de Criticidade</th>
-      <th>Status do Incidente</th>
       <th>Reportador por</th>
       <th>Aberto Em</th>
       <th>Última Atualização</th>
       <th>Analista</th>
+      <th>Status</th>
       <th colspan="3"></th>
     </tr>
     </thead>
@@ -28,7 +28,6 @@
       <tr style= "background: <%= cycle('white', 'ice') %>">
         <td><%= incident.title %></td>
         <td><%= incident.priority_level %></td>
-        <td><%= incident.status %></td>
         <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
 
         <td><%= brazil_date(incident.created_at) %></td>
@@ -38,6 +37,7 @@
         <% else %>
           <td><%= incident.analyst.name %> </td>
         <% end %>
+        <td><%= incident.status %></td>
 
         <% if backofficer_signed_in? %>
           <% if incident.status == 'open' || incident.status == 'reopened' %>
