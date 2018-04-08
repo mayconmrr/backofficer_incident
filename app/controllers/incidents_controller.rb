@@ -9,14 +9,14 @@ class IncidentsController < ApplicationController
 
   def my_incidents
     if backofficer_signed_in?
-      @my_incidents = Incident.where(backofficer_id: current_backofficer).paginate(:page => params[:page], :per_page => 10)
+      @my_incidents = Incident.where(backofficer_id: current_backofficer).paginate(page: params[:page], per_page: 10)
     else
-      @my_incidents = Incident.where(analyst_id: current_analyst).paginate(:page => params[:page], :per_page => 10)
+      @my_incidents = Incident.where(analyst_id: current_analyst).paginate(page: params[:page], per_page: 10)
     end
   end
 
   def index
-    @incidents = Incident.all.paginate(:page => params[:page], :per_page => 10)
+    @incidents = Incident.all.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -85,14 +85,14 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
+  def search
+    @incidents = Incident.search(params[:q]).paginate(page: params[:page], per_page: 10)
+  end
+
   private
 
   def set_incident
-    if params[:id].present?
-      @incident = Incident.find(params[:id])
-    else
-      @incident = Incident.find(params[:incident_id])
-    end
+    @incident = Incident.find(params[:incident_id]) unless @incident = Incident.find(params[:id])
   end
 
   def incident_params

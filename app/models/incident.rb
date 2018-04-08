@@ -10,6 +10,10 @@ class Incident < ApplicationRecord
   has_attached_file :evidence_screen, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "missing.png"
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
 
+  scope :search, ->(term, page) {
+    (where("lower(title) LIKE ?", "%#{term.downcase}%") + where("lower(problem_description) LIKE ?", "%#{term.downcase}%"))
+  }
+
   PROBLEM_KINDS = {
     bug_system: 0,
     user_request: 1,

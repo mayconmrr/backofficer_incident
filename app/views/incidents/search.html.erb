@@ -1,0 +1,90 @@
+<div class="panel panel-primary">
+  <div class="panel-heading" ><h3>Listagem de Incidentes</h3></div>
+</div>
+
+<div class="container">
+  <%= form_tag search_path, method: :get do %>
+    <div class="row">
+      <div class="well well-sm">
+        <div class="row">
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            <div class="input-group">
+              <%= text_field_tag(:q, params[:q], { class:"form-control", placeholder:"Pesquisar incidente..." }) %>
+              <span class="input-group-btn">
+                <%= submit_tag("Pesquisar", class:"btn btn-default") %>
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-3"></div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="basic-grey" align="center">
+  <table>
+    <thead>
+    <tr>
+      <th>Resumo do Problema</th>
+      <th>Nível de Criticidade</th>
+      <th>Reportador por</th>
+      <th>Aberto Em</th>
+      <th>Última Atualização</th>
+      <th>Analista</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+<% @incidents.each do |incident| %>
+  <tr style= "background: <%= cycle('white', 'ice') %>">
+    <td><%= incident.title %></td>
+    <td><%= incident.priority_level %></td>
+    <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
+
+    <td><%= brazil_date(incident.created_at) %></td>
+    <td><%= brazil_date(incident.updated_at) %></td>
+    <% if incident.analyst.blank? %>
+      <td><%= 'Sem atendimento' %> </td>
+    <% else %>
+      <td><%= incident.analyst.name %> </td>
+    <% end %>
+    <td><%= incident.status %></td>
+
+    <% if backofficer_signed_in? %>
+      <% if incident.status == 'open' || incident.status == 'reopened' %>
+        <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+        <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
+      <% elsif incident.status == 'solved' %>
+        <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+        <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-danger" %></td>
+      <% elsif incident.status == 'closed' %>
+        <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
+        <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
+      <% elsif incident.status == 'analysing' %>
+        <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+        <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
+      <% elsif incident.status == 'pending' %>
+        <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+        <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary" %></td>
+      <% end %>
+    <% else %>
+      <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
+      <% if incident.status == 'open' %>
+        <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
+      <% elsif incident.status == 'analysing' %>
+        <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+      <% elsif incident.status == 'pending' %>
+        <td><%= link_to 'Reiniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
+      <% elsif incident.status == 'solved' %>
+        <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
+      <% end %>
+    <% end %>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+<div class="panel-heading" align="center"><%= will_paginate @incidens %></div>
