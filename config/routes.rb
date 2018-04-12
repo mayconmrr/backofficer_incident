@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   end
 
   get 'my_incidents', to: 'incidents#my_incidents'
-  get 'solve_form', to: 'incidents#solve_form'
-  get 'pending_form', to: 'incidents#pending_form'
+  get 'solve', to: 'incidents#solve'
+  get 'pending', to: 'incidents#pending'
   get 'search', to: 'incidents#search'
-  get 'reopen_form', to: 'incidents#reopen_form'
+  get 'reopen', to: 'incidents#reopen'
 
   root 'incidents#index'
 end

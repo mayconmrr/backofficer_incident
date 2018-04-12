@@ -55,7 +55,6 @@
           <% elsif incident.status == 'closed' %>
             <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
-
           <% elsif incident.status == 'analysing' %>
             <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>

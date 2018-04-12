@@ -1,5 +1,5 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen_form]
+  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen, :solve, :pending]
   before_action :authenticate_user
   before_action :authenticate_analyst!, only: [:analyse, :solve_form, :capture]
   before_action :check_to_reopen, only: [:reopen_form]
@@ -46,14 +46,8 @@ class IncidentsController < ApplicationController
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        if @incident.status == 'solved'
-        format.html { redirect_to @incident, notice: 'Incident was successfully solved.' }
-        elsif @incident.status == 'reopened'
-          format.html { redirect_to @incident, notice: 'Incident was successfully reopened.' }
-        else
-          format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
-        end
-          format.json { render :show, status: :ok }
+        format.html { redirect_to @incident, notice: 'Account was successfully updated.' }
+        format.json { render :show, status: :ok }
       else
         format.html { render :new }
         format.json { render json: @incident.errors, status: :unprocessable_entity }
@@ -71,13 +65,13 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
-  def solve_form
-    @incident = Incident.find(params[:id])
+  def solve
+    #
     redirect_to @incident unless check_to_solve
   end
 
-  def pending_form
-    @incident = Incident.find(params[:id])
+  def pending
+    #
   end
 
   def capture
@@ -85,8 +79,8 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
-  def reopen_form
-    @incident = Incident.find(params[:id])
+  def reopen
+    #
   end
 
   def search

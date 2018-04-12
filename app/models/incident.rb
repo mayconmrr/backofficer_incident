@@ -11,57 +11,15 @@ class Incident < ApplicationRecord
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
 
   scope :search, ->(term, page) {
-    (where("lower(title) LIKE ?", "%#{term.downcase}%") + where("lower(problem_description) LIKE ?", "%#{term.downcase}%"))
+    where("lower(title) LIKE ?", "%#{term.downcase}%") + where("lower(problem_description) LIKE ?", "%#{term.downcase}%")
   }
 
-  PROBLEM_KINDS = {
-    bug_system: 0,
-    user_request: 1,
-    miseu: 3,
-    not_specified: 4
-  }.with_indifferent_access
-  enum problem_kind: PROBLEM_KINDS
-
-  PRIORITY_LEVELS = {
-    low: 0,
-    medium: 1,
-    high: 2,
-    emergency: 90
-  }.with_indifferent_access
-  enum priority_level: PRIORITY_LEVELS
-
-  STATUSES_INCIDENT = {
-    open: 0,
-    solved: 1,
-    reopened: 3,
-    analysing: 4,
-    pending: 5,
-    closed: 90
-  }.with_indifferent_access
-  enum status: STATUSES_INCIDENT
-
-  ENTITY = {
-      contract: 0,
-      customer: 1,
-      backofficer: 2,
-      broker: 3,
-      claim: 4,
-      assistence: 5,
-      other: 90
-  }.with_indifferent_access
-  enum entity: ENTITY
-
-  PLATAFORM = {
-    app: 0,
-    web: 1
-  }.with_indifferent_access
-  enum plataform_kind: PLATAFORM
-
-  PENDING = {
-      supplier_block: 0,
-      information_missing: 1
-  }.with_indifferent_access
-  enum pending_reason: PENDING
+  has_enumeration_for :status, with: Enumerations::IncidentStatus, create_helpers: true, create_scopes: true
+  has_enumeration_for :problem_kind, with: Enumerations::ProblemKind, create_helpers: true, create_scopes: true
+  has_enumeration_for :priority_level, with: Enumerations::PriorityLevel, create_helpers: true, create_scopes: true
+  has_enumeration_for :entity, with: Enumerations::IncidentEntity, create_helpers: true, create_scopes: true
+  has_enumeration_for :plataform_kind, with: Enumerations::IncidentPlataform, create_helpers: true, create_scopes: true
+  has_enumeration_for :plataform_kind, with: Enumerations::PendingReason, create_helpers: true, create_scopes: true
 
   private
 
