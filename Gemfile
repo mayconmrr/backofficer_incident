@@ -29,6 +29,7 @@ gem 'paperclip', '~> 5.2.1'
 gem 'paperclip-i18n'
 gem 'time_difference'
 gem 'enumerate_it', '~> 1.6', '>= 1.6.1'
+gem 'awesome_print', '~> 1.8.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

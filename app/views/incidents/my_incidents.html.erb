@@ -46,22 +46,22 @@
           <td><%= incident.backofficer.name %></td>
         <% end %>
         <% if backofficer_signed_in? %>
-          <% if incident.status == 'open' || incident.status == 'reopened' %>
+          <% if incident.status == Enumerations::IncidentStatus::OPEN || incident.status == Enumerations::IncidentStatus::REOPENED %>
             <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
-          <% elsif incident.status == 'solved' %>
+          <% elsif incident.status == Enumerations::IncidentStatus::SOLVED %>
             <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-danger" %></td>
-          <% elsif incident.status == 'closed' %>
+          <% elsif incident.status == Enumerations::IncidentStatus::CLOSED %>
             <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
-          <% elsif incident.status == 'analysing' %>
+          <% elsif incident.status == Enumerations::IncidentStatus::ANALYSING %>
             <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
             <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
           <% end %>
         <% else %>
           <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
-          <% if incident.status == 'open' %>
+          <% if incident.status == Enumerations::IncidentStatus::OPEN %>
             <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
           <% else %>
             <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>

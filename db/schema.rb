@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20180408131055) do
   create_table "incidents", force: :cascade do |t|
     t.integer "analyst_id"
     t.integer "backofficer_id"
-    t.string "problem_kind"
-    t.string "priority_level"
+    t.string "problem_kind", default: "bug_system"
+    t.string "priority_level", default: "low"
     t.string "problem_description"
     t.string "pending_description"
     t.string "solution_description"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20180408131055) do
     t.string "user_cpf"
     t.string "contract_id"
     t.string "title"
-    t.string "status"
+    t.string "status", default: "open"
     t.string "analysis_time"
     t.datetime "analysis_started_at"
     t.datetime "solved_at"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 20180408131055) do
     t.string "captured_by"
     t.string "pending_reason"
     t.string "reopening_description"
+    t.boolean "incident_reopened", default: false
+    t.string "reopened_by"
     t.index ["analyst_id"], name: "index_incidents_on_analyst_id"
     t.index ["backofficer_id"], name: "index_incidents_on_backofficer_id"
   end

@@ -1,12 +1,13 @@
 class IncidentsController < ApplicationController
   before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen, :solve, :pending]
-  before_action :authenticate_user
-  before_action :authenticate_analyst!, only: [:analyse, :solve_form, :capture]
-  before_action :check_to_reopen, only: [:reopen_form]
+  before_action :authenticate_user, only: [:my_incidents, :search]
+  before_action :authenticate_backofficer!, only: [:create]
+  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture]
+
+  before_action :check_to_reopen, only: [:reopen]
   include UserHelper
 
-  def show
-  end
+  def show; end
 
   def my_incidents
     if backofficer_signed_in?
@@ -39,14 +40,12 @@ class IncidentsController < ApplicationController
     end
   end
 
-  def edit
-    #
-  end
+  def edit; end
 
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: 'Account was successfully updated.' }
+        format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
         format.json { render :show, status: :ok }
       else
         format.html { render :new }
@@ -61,12 +60,11 @@ class IncidentsController < ApplicationController
   end
 
   def analyse
-    @incident.update(status: 4, analyst: current_analyst, analysis_started_at: DateTime.now)
+    @incident.update(status: Enumerations::IncidentStatus::ANALYSING, analyst: current_analyst, analysis_started_at: DateTime.now)
     redirect_to @incident
   end
 
   def solve
-    #
     redirect_to @incident unless check_to_solve
   end
 
@@ -80,7 +78,7 @@ class IncidentsController < ApplicationController
   end
 
   def reopen
-    #
+    # colocar reopen flag to true
   end
 
   def search
@@ -118,13 +116,14 @@ class IncidentsController < ApplicationController
   end
 
   def check_to_solve
-    @incident.status == 'analysing' && @incident.analyst_id == current_analyst.id
+    @incident.status == Enumerations::IncidentStatus::ANALYSING && @incident.analyst == current_analyst
   end
 
   def check_to_reopen
     redirect_to @incident unless
-
-    @incident.status == 'solved' && authenticate_analyst!
+    (@incident.status == Enumerations::IncidentStatus::SOLVED ||
+        @incident.status == Enumerations::IncidentStatus::REOPENED) &&
+        authenticate_backofficer!
   end
 end
 

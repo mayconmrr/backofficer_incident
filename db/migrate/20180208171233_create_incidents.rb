@@ -3,8 +3,8 @@ class CreateIncidents < ActiveRecord::Migration[5.1]
     create_table :incidents do |t|
       t.references :analyst, optional: true
       t.references :backofficer, foreing_key: true
-      t.string :problem_kind
-      t.string :priority_level
+      t.string :problem_kind, default: 'bug_system'
+      t.string :priority_level, default: 'low'
       t.string :problem_description
       t.string :pending_description
       t.string :solution_description
@@ -13,7 +13,7 @@ class CreateIncidents < ActiveRecord::Migration[5.1]
       t.string :user_cpf
       t.string :contract_id
       t.string :title
-      t.string :status
+      t.string :status, default: 'open'
       t.string :analysis_time
       t.datetime :analysis_started_at
       t.datetime :solved_at

@@ -57,11 +57,13 @@
             </div>
           </div>
 
-          <%= f.hidden_field :status, value: 'reopened' %>
+          <%= f.hidden_field :status, value: Enumerations::IncidentStatus::REOPENED %>
+          <%= f.hidden_field :reopened_by, value: current_backofficer %>
+
 
           <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
-              <%= f.submit "Atualizar Incidente", class:"btn btn-success" do %>
+              <%= f.submit "Confirmar", class:"btn btn-success" do %>
               <% end %>
             </div>
           </div>
