@@ -3,7 +3,7 @@
     <div class="panel panel-info">
       <div class="panel-heading">
         <div class="centered">
-          <h3> Dados do Incidente </h3>
+          <h3>Dados da Requisição</h3>
         </div>
       </div>
       <div class="panel-body">
@@ -18,7 +18,7 @@
           <div class="form-group">
             <%= f.label :priority_level, class:"col-md-3 control-label" %>
             <div class="col-md-9">
-              <%= f.select :priority_level, Enumerations::PriorityLevel.keys, { prompt: "Selecione o nível de criticidade do incidente" }, { class: "form-control"} %>
+              <%= f.select :priority_level, Enumerations::PriorityLevel.keys, { prompt: "Selecione o nível de criticidade da requisição" }, { class: "form-control"} %>
             </div>
           </div>
 

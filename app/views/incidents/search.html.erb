@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-  <div class="panel-heading" ><h3>Listagem de Incidentes</h3></div>
+  <div class="panel-heading" ><h3>Listagem de Requisições</h3></div>
 </div>
 
 <div class="container">
@@ -10,7 +10,7 @@
           <div class="col-lg-3"></div>
           <div class="col-lg-6">
             <div class="input-group">
-              <%= text_field_tag(:q, params[:q], { class:"form-control", placeholder:"Pesquisar incidente..." }) %>
+              <%= text_field_tag(:q, params[:q], { class:"form-control", placeholder:"Pesquisar requisição..." }) %>
               <span class="input-group-btn">
                 <%= submit_tag("Pesquisar", class:"btn btn-default") %>
               </span>

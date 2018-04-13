@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-  <div class="panel-heading">Detalhes do Incidente</div>
+  <div class="panel-heading">Detalhes do Requisição</div>
   <div class="panel-body">
     <table class="table table-condensed">
       <thead>
@@ -10,7 +10,7 @@
           <th>Aberto Em</th>
           <th>Analista</th>
           <th>Última Atualização</th>
-          <th>Status do Incidente</th>
+          <th>Status da Requisição</th>
         </tr>
       </thead>
       <tbody>
@@ -96,44 +96,43 @@
 <div class="text-center">
   <% if backofficer_signed_in? %>
     <% if @incident.status == Enumerations::IncidentStatus::OPEN || @incident.status == Enumerations::IncidentStatus::PENDING %>
-      <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
+      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
     <% elsif @incident.status == Enumerations::IncidentStatus::SOLVED %>
-      <%= link_to 'Reabrir Incidente', reopen_path(id: @incident.id), class: "btn btn-danger" %>
+      <%= link_to 'Reabrir Requisição', reopen_path(id: @incident.id), class: "btn btn-danger" %>
     <% elsif @incident.status == Enumerations::IncidentStatus::ANALYSING %>
-      <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default disabled", :disabled => true %>
-
+      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default disabled", :disabled => true %>
     <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
-      <%= link_to 'Editar dados do incidente', edit_incident_path(@incident), class: "btn btn-default" %>
+      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
       <%= "  |  " %>
-      <%= link_to 'Editar motivo da reabertura', reopen_path(id: @incident.id), class: "btn btn-danger" %>
+      <%= link_to 'Editar motivo da Reabertura', reopen_path(id: @incident.id), class: "btn btn-danger" %>
     <% end %>
 <% elsif analyst_signed_in? %>
     <% if @incident.status == Enumerations::IncidentStatus::OPEN %>
       <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger" %>
       <%= "  |  " %>
-      <%= link_to 'Resolver Incidente', solve_path(id: @incident.id), class: "btn btn-success disabled", :disabled => true %>
+      <%= link_to 'Resolver Requisição', solve_path(id: @incident.id), class: "btn btn-success disabled", :disabled => true %>
     <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
       <%= link_to 'Reiniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger" %>
     <% elsif @incident.status == Enumerations::IncidentStatus::ANALYSING && @incident.analyst_id == current_analyst.id %>
       <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
       <%= "  |  " %>
-      <%= link_to 'Resolver Incidente', solve_path(id: @incident.id), method: :get, class: "btn btn-success" %>
+      <%= link_to 'Resolver Requisição', solve_path(id: @incident.id), method: :get, class: "btn btn-success" %>
       <%= "  |  " %>
       <%= link_to 'Pendente', pending_path(id: @incident.id), method: :get, class: "btn btn-primary" %>
     <% elsif (@incident.status == Enumerations::IncidentStatus::ANALYSING || @incident.status == Enumerations::IncidentStatus::PENDING) && @incident.analyst_id != current_analyst.id %>
       <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
       <%= "  |  " %>
-      <%= link_to 'Pegar Incidente', incident_capture_path(@incident.id), method: :patch, class: "btn btn-success" %>
+      <%= link_to 'Pegar Requisição', incident_capture_path(@incident.id), method: :patch, class: "btn btn-success" %>
     <% elsif (@incident.status == Enumerations::IncidentStatus::PENDING || @incident.status == Enumerations::IncidentStatus::REOPENED) && @incident.analyst_id == current_analyst.id %>
       <td><%= link_to 'Reiniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger" %></td>
     <% end %>
     <% if @incident.status == Enumerations::IncidentStatus::CLOSED || @incident.status == Enumerations::IncidentStatus::SOLVED %>
       <%= link_to 'Iniciar Análise', incident_analyse_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
       <%= "  |  " %>
-      <%= link_to 'Resolver Incidente', edit_incident_path(@incident), class: "btn btn-success disabled", :disabled => true %>
+      <%= link_to 'Resolver Requisição', edit_incident_path(@incident), class: "btn btn-success disabled", :disabled => true %>
     <% end %>
   <% end %>
 </div>
 <br />
 <br />
-<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
+<%= link_to 'Lista de Requisições', incidents_path, class: "btn btn-primary" %>
