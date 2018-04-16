@@ -22,4 +22,6 @@
 /pendencies.txt
 
 .byebug_history
-.idea
+/.idea/workspace.xml
+.idea/
+/.idea/*
