@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180408131055) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "analysts", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -49,8 +52,8 @@ ActiveRecord::Schema.define(version: 20180408131055) do
   end
 
   create_table "incidents", force: :cascade do |t|
-    t.integer "analyst_id"
-    t.integer "backofficer_id"
+    t.bigint "analyst_id"
+    t.bigint "backofficer_id"
     t.string "problem_kind", default: "bug_system"
     t.string "priority_level", default: "low"
     t.string "problem_description"

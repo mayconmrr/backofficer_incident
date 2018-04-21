@@ -30,11 +30,13 @@ gem 'time_difference'
 gem 'enumerate_it', '~> 1.6', '>= 1.6.1'
 gem 'awesome_print', '~> 1.8.0'
 gem 'pg'
+gem 'lerolero_generator'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'faker'
 end
 
 group :development do
