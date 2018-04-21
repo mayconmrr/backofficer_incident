@@ -1,11 +1,11 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident,only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen, :solve, :pending]
-  before_action :authenticate_user, only: [:my_incidents, :search]
+  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen, :solve, :solution, :pending]
+  before_action :authenticate_user, only: [:my_incidents, :search, :index]
   before_action :authenticate_backofficer!, only: [:create]
-  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture]
+  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture, :solution]
 
   before_action :check_to_reopen, only: [:reopen]
-  before_action :check_to_solve, only: [:solve]
+  before_action :check_to_resolve, only: [:solution]
   include UserHelper
 
   def show; end
@@ -19,7 +19,7 @@ class IncidentsController < ApplicationController
   end
 
   def index
-    @incidents = Incident.all.paginate(page: params[:page], per_page: 10)
+    @incidents = Incident.all.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
   end
 
   def new
@@ -66,17 +66,18 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
-  def solve
-    binding.pry
-    if @incident.update(incident_params)
-      format.html { redirect_to @incident, notice: 'Requisição resolvida com sucesso!' }
-      format.json { render :show, status: :ok }
-    else
-      format.html { render :new }
-      format.json { render json: @incident.errors, status: :unprocessable_entity }
-    end
+  def solve; end
 
-    redirect_to @incident unless check_to_solve
+  def solution
+    respond_to do |format|
+      if @incident.update(incident_params)
+        format.html { redirect_to @incident, notice: 'Requisição de urgência solucionada com sucesso.' }
+        format.json { render :show, status: :ok }
+      else
+        format.html { render :new }
+        format.json { render json: @incident.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def pending
@@ -89,8 +90,7 @@ class IncidentsController < ApplicationController
   end
 
   def reopen
-
-    flash[:notice] = 'Requisição reaberta!'
+    flash[:notice] = 'Requisição de urgência reaberta!'
   end
 
   def search
@@ -127,7 +127,7 @@ class IncidentsController < ApplicationController
     end
   end
 
-  def check_to_solve
+  def check_to_resolve
     if @incident.status == Enumerations::IncidentStatus::ANALYSING && @incident.analyst == current_analyst
       true
     else

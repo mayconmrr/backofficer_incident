@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :incidents do
     patch :analyse
-    patch :solve
+    patch :solution
     patch :capture
     patch :pending
     patch :reopen

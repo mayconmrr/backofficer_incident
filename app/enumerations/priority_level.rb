@@ -3,8 +3,7 @@ module Enumerations
   associate_values(
     :low,
     :medium,
-    :high,
-    :emergency
+    :high
   )
   end
 end

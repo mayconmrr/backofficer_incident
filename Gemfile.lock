@@ -135,6 +135,7 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
     paperclip-i18n (4.3.0)
+    pg (0.21.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   paperclip (~> 5.2.1)
   paperclip-i18n
+  pg
   pry (~> 0.11.3)
   pry-rails (~> 0.3.6)
   puma (~> 3.7)

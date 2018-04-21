@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.1.4'
-gem 'sqlite3'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'better_errors'
@@ -30,6 +29,7 @@ gem 'paperclip-i18n'
 gem 'time_difference'
 gem 'enumerate_it', '~> 1.6', '>= 1.6.1'
 gem 'awesome_print', '~> 1.8.0'
+gem 'pg'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -2,7 +2,8 @@ module Enumerations
   class IncidentPlataform < EnumerateIt::Base
     associate_values(
       :app,
-      :web
+      :web,
+      :both
     )
   end
 end

@@ -5,7 +5,9 @@ class Incident < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 40 }
   validates_presence_of :problem_description
-  validates_presence_of :user_email
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :user_email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
   has_attached_file :evidence_screen, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "missing.png"
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
