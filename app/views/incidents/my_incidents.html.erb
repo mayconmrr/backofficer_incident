@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3>Requisicões de <%= check_user.name %></h3></div>
+  <div class="panel-heading"><h3>Requisicões de Urgência: <%= check_user.name %></h3></div>
 </div>
 
 <% if backofficer_signed_in? %>
@@ -13,16 +13,16 @@
   <table>
     <thead>
     <tr>
-      <th>ID do Requisição</th>
-      <th>Resumo do Problema</th>
-      <th>Nível de Criticidade</th>
-      <th>Aberto Em</th>
-      <th>Última Atualização</th>
-      <th>Status</th>
+      <th class="not_mapped_style" style="text-align:center">ID do Requisição</th>
+      <th class="not_mapped_style" style="text-align:center">Resumo do Problema</th>
+      <th class="not_mapped_style" style="text-align:center">Nível de Criticidade</th>
+      <th class="not_mapped_style" style="text-align:center">Aberto Em</th>
+      <th class="not_mapped_style" style="text-align:center">Última Atualização</th>
+      <th class="not_mapped_style" style="text-align:center">Status</th>
       <% if backofficer_signed_in? %>
-        <th>Analista</th>
+        <th class="not_mapped_style" style="text-align:center">Analista</th>
       <% else %>
-        <th>Reportador por</th>
+        <th class="not_mapped_style" style="text-align:center">Reportador por</th>
       <% end %>
       <th colspan="3"></th>
     </tr>
@@ -39,8 +39,6 @@
           <td><span class='label label-warning'><%= incident.priority_level %></span></td>
         <% elsif incident.priority_level == Enumerations::PriorityLevel::HIGH %>
           <td><span class='label label-danger'><%= incident.priority_level %></span></td>
-        <% else %>
-          <td>fudeu</td>
         <% end %>
 
         <td><%= brazil_date(incident.created_at) %></td>
@@ -100,7 +98,7 @@
   </table>
 </div>
 <div class="panel-heading" align="center"><%= will_paginate @my_incidents %></div>
-<%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
+<%= link_to 'Listar Requisições', incidents_path, class: "btn btn-primary" %>
 
 
 
