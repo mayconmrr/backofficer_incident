@@ -4,7 +4,7 @@
 
 <% if backofficer_signed_in? %>
   <div class="centered">
-    <td><%= link_to 'Abrir Requisição', new_incident_path, class: "btn btn-success" %></td>
+    <td><%= link_to 'Nova Requisição de Urgência', new_incident_path, class: "btn btn-success" %></td>
   </div>
   <br />
 <% end %>
@@ -41,8 +41,7 @@
           <td>fudeu</td>
         <% end %>
 
-
-        <td><%= incident.backofficer.name %> - <%= incident.backofficer.email %> </td>
+        <td><%= incident.backofficer.name %></td>
         <td><%= brazil_date(incident.created_at) %></td>
         <td><%= brazil_date(incident.updated_at) %></td>
 
@@ -61,7 +60,7 @@
         <% end %>
 
         <% if incident.analyst.blank? %>
-          <td><%= '  -    '%> </td>
+          <td><%= 'Sem atendimento' %> </td>
         <% else %>
           <td><%= incident.analyst.name %> </td>
         <% end %>

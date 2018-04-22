@@ -4,7 +4,7 @@
 
 <% if backofficer_signed_in? %>
   <div class="centered">
-    <td><%= link_to 'Abrir Requisição', new_incident_path, class: "btn btn-success" %></td>
+    <td><%= link_to 'Nova Requisição de Urgência', new_incident_path, class: "btn btn-success" %></td>
   </div>
   <br />
 <% end %>
@@ -99,7 +99,7 @@
     </tbody>
   </table>
 </div>
-</br>
+<div class="panel-heading" align="center"><%= will_paginate @my_incidents %></div>
 <%= link_to 'Lista de Incidentes', incidents_path, class: "btn btn-primary" %>
 
 

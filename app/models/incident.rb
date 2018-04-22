@@ -9,19 +9,31 @@ class Incident < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :user_email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
-  has_attached_file :evidence_screen, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "missing.png"
+  has_attached_file :evidence_screen, styles: { medium: '300x300>', thumb: '100x100>' }, default_url: 'missing.png'
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
 
   scope :search, ->(term, page) {
-    (where("lower(title) LIKE ?", "%#{term.downcase}%") + where("lower(problem_description) LIKE ?", "%#{term.downcase}%")).uniq
+    (where('lower(title) LIKE ?', "%#{term.downcase}%") +
+        where('lower(problem_description) LIKE ?', "%#{term.downcase}%")).uniq
   }
 
-  has_enumeration_for :status, with: Enumerations::IncidentStatus, create_helpers: true, create_scopes: true
-  has_enumeration_for :problem_kind, with: Enumerations::ProblemKind, create_helpers: true, create_scopes: true
-  has_enumeration_for :priority_level, with: Enumerations::PriorityLevel, create_helpers: true, create_scopes: true
-  has_enumeration_for :entity, with: Enumerations::IncidentEntity, create_helpers: true, create_scopes: true
-  has_enumeration_for :plataform_kind, with: Enumerations::IncidentPlataform, create_helpers: true, create_scopes: true
-  has_enumeration_for :pending_reason, with: Enumerations::PendingReason, create_helpers: true, create_scopes: true
+  has_enumeration_for :status, with: Enumerations::IncidentStatus,
+                               create_helpers: true, create_scopes: true
+
+  has_enumeration_for :problem_kind, with: Enumerations::ProblemKind,
+                                     create_helpers: true, create_scopes: true
+
+  has_enumeration_for :priority_level, with: Enumerations::PriorityLevel,
+                                       create_helpers: true, create_scopes: true
+
+  has_enumeration_for :entity, with: Enumerations::IncidentEntity,
+                               create_helpers: true, create_scopes: true
+
+  has_enumeration_for :plataform_kind, with: Enumerations::IncidentPlataform,
+                                       create_helpers: true, create_scopes: true
+
+  has_enumeration_for :pending_reason, with: Enumerations::PendingReason,
+                                       create_helpers: true, create_scopes: true
 
   private
 

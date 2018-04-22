@@ -1,27 +1,28 @@
-#========= Analysts ========#
-puts "Creating Analysts..."
+
+#====================== Analyst ======================#
+puts 'Creating Analysts...'
+
 Analyst.create(
   name: 'Analista Default',
   email: 'analyst@thinkseg.com',
   password: '123123'
 )
-puts "Analyst created."
-#============================#
 
+puts 'Analyst created.'
 
-#======= Backofficers =======#
-puts "Creating Backofficers..."
+#==================== Backofficer ====================#
+puts 'Creating Backofficers...'
+
 Backofficer.create(
   name: 'Backofficer Default',
   email: 'backofficer@thinkseg.com',
   password: '123123'
 )
-puts "Backofficers created."
-#============================#
 
+puts 'Backofficers created.'
 
-#========= Analysts =========#
-puts "Creating Incidents..."
+#====================== Incident ======================#
+puts 'Creating Incidents...'
 
 25.times do
   incident = Incident.new(
@@ -36,8 +37,5 @@ puts "Creating Incidents..."
   )
   incident.save!
 end
-puts "Incidents created."
-#============================#
 
-
-
+puts 'Incidents created.'
