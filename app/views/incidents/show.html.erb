@@ -18,12 +18,13 @@
           <td><%= @incident.id %></td>
           <!-- priority_level -->
           <% if @incident.priority_level == Enumerations::PriorityLevel::LOW %>
-            <td><span class='label label-info'><%= @incident.priority_level %></span></td>
+            <td><span class='label label-info'><%= I18n.t("enumerations.enumerations/priority_level.low") %></span></td>
           <% elsif @incident.priority_level == Enumerations::PriorityLevel::MEDIUM %>
-            <td><span class='label label-warning'><%= @incident.priority_level %></span></td>
+            <td><span class='label label-warning'><%= I18n.t("enumerations.enumerations/priority_level.medium") %></span></td>
           <% elsif @incident.priority_level == Enumerations::PriorityLevel::HIGH %>
-            <td><span class='label label-danger'><%= @incident.priority_level %></span></td>
+            <td><span class='label label-danger'><%= I18n.t("enumerations.enumerations/priority_level.high") %></span></td>
           <% end %>
+
           <td><%= @incident.backofficer.name %></td>
           <td><%= brazil_date(@incident.created_at) %></td>
           <% if @incident.analyst.blank? %>
@@ -34,17 +35,17 @@
           <td><%= brazil_date(@incident.updated_at) %></td>
           <!-- status -->
           <% if @incident.status == Enumerations::IncidentStatus::SOLVED %>
-            <td><span class='label label-success'><%= @incident.status %></span></td>
+            <td><span class='label label-success'><%= I18n.t("enumerations.enumerations/incident_status.solved") %></span></td>
           <% elsif @incident.status == Enumerations::IncidentStatus::OPEN %>
-            <td><span class='label label-warning'><%= @incident.status %></span></td>
+            <td><span class='label label-warning'><%= I18n.t("enumerations.enumerations/incident_status.open") %></span></td>
           <% elsif @incident.status == Enumerations::IncidentStatus::PENDING %>
-            <td><span class='label label-info'><%= @incident.status %></span></td>
+            <td><span class='label label-info'><%= I18n.t("enumerations.enumerations/incident_status.pending") %></span></td>
           <% elsif @incident.status == Enumerations::IncidentStatus::CLOSED %>
-            <td><span class='label label-default'><%= @incident.status %></span></td>
+            <td><span class='label label-default'><%= I18n.t("enumerations.enumerations/incident_status.closed") %></span></td>
           <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
-            <td><span class='label label-danger'><%= @incident.status %></span></td>
+            <td><span class='label label-danger'><%= I18n.t("enumerations.enumerations/incident_status.reopened") %></span></td>
           <% elsif @incident.status == Enumerations::IncidentStatus::ANALYSING %>
-            <td><span class='label label-primary'><%= @incident.status %></span></td>
+            <td><span class='label label-primary'><%= I18n.t("enumerations.enumerations/incident_status.analysing") %></span></td>
           <% end %>
         </tr>
       </tbody>

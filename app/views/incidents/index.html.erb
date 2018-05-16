@@ -16,10 +16,10 @@
     <table>
       <thead>
       <tr>
+        <th class="not_mapped_style" style="text-align:center">ID</th>
         <th class="not_mapped_style" style="text-align:center">Resumo do Problema</th>
-        <th class="not_mapped_style" style="text-align:center">Nível de Criticidade</th>
-        </th>
         <th class="not_mapped_style" style="text-align:center">Reportador por</th>
+        <th class="not_mapped_style" style="text-align:center">Nível de Prioridade</th>
         <th class="not_mapped_style" style="text-align:center">Aberto Em</th>
         <th class="not_mapped_style" style="text-align:center">Última Atualização</th>
         <th class="not_mapped_style" style="text-align:center">Status</th>
@@ -30,7 +30,9 @@
       <tbody>
       <% @incidents.each do |incident| %>
         <tr style= "background: <%= cycle('white', 'ice') %>">
+          <td><%= incident.id %></td>
           <td><%= incident.title %></td>
+          <td><%= incident.backofficer.name %></td>
 
           <% if incident.priority_level == Enumerations::PriorityLevel::LOW %>
             <td><span class='label label-info'><%= I18n.t("enumerations.enumerations/priority_level.low") %></span></td>
@@ -40,13 +42,12 @@
             <td><span class='label label-danger'><%= I18n.t("enumerations.enumerations/priority_level.high") %></span></td>
           <% end %>
 
-          <td><%= incident.backofficer.name %></td>
           <td><%= brazil_date(incident.created_at) %></td>
           <td><%= brazil_date(incident.updated_at) %></td>
 
           <% if incident.status == Enumerations::IncidentStatus::SOLVED %>
             <td><span class='label label-success'><%= I18n.t("enumerations.enumerations/incident_status.solved") %></span></td>
-        <% elsif incident.status == Enumerations::IncidentStatus::OPEN %>
+          <% elsif incident.status == Enumerations::IncidentStatus::OPEN %>
             <td><span class='label label-warning'><%= I18n.t("enumerations.enumerations/incident_status.open") %></span></td>
           <% elsif incident.status == Enumerations::IncidentStatus::PENDING %>
             <td><span class='label label-info'><%= I18n.t("enumerations.enumerations/incident_status.pending") %></span></td>
