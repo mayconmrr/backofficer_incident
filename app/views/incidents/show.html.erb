@@ -16,7 +16,14 @@
       <tbody>
         <tr>
           <td><%= @incident.id %></td>
-          <td><%= @incident.priority_level %></td>
+          <!-- priority_level -->
+          <% if @incident.priority_level == Enumerations::PriorityLevel::LOW %>
+            <td><span class='label label-info'><%= @incident.priority_level %></span></td>
+          <% elsif @incident.priority_level == Enumerations::PriorityLevel::MEDIUM %>
+            <td><span class='label label-warning'><%= @incident.priority_level %></span></td>
+          <% elsif @incident.priority_level == Enumerations::PriorityLevel::HIGH %>
+            <td><span class='label label-danger'><%= @incident.priority_level %></span></td>
+          <% end %>
           <td><%= @incident.backofficer.name %></td>
           <td><%= brazil_date(@incident.created_at) %></td>
           <% if @incident.analyst.blank? %>
@@ -25,7 +32,20 @@
             <td><%= @incident.analyst.name %> </td>
           <% end %>
           <td><%= brazil_date(@incident.updated_at) %></td>
-          <td><%= @incident.status %></td>
+          <!-- status -->
+          <% if @incident.status == Enumerations::IncidentStatus::SOLVED %>
+            <td><span class='label label-success'><%= @incident.status %></span></td>
+          <% elsif @incident.status == Enumerations::IncidentStatus::OPEN %>
+            <td><span class='label label-warning'><%= @incident.status %></span></td>
+          <% elsif @incident.status == Enumerations::IncidentStatus::PENDING %>
+            <td><span class='label label-info'><%= @incident.status %></span></td>
+          <% elsif @incident.status == Enumerations::IncidentStatus::CLOSED %>
+            <td><span class='label label-default'><%= @incident.status %></span></td>
+          <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
+            <td><span class='label label-danger'><%= @incident.status %></span></td>
+          <% elsif @incident.status == Enumerations::IncidentStatus::ANALYSING %>
+            <td><span class='label label-primary'><%= @incident.status %></span></td>
+          <% end %>
         </tr>
       </tbody>
     </table>
@@ -42,12 +62,21 @@
     <div class="col-md-4">
       <div class="centered">
         <h4>Tela de Evidência</h4>
-        <%=  image_tag @incident.evidence_screen.url(:medium) %>
+        <!-- evidence_screen -->
+
+        <% if @incident.evidence_screen.file? %>
+          <%= link_to @incident.evidence_screen.url(:large) do %>
+            <%= image_tag @incident.evidence_screen.url(:medium) %>
+          <% end %>
+        <% else %>
+          <%= image_tag @incident.evidence_screen.url(:medium) %>
+        <% end %>
       </div>
     </div>
     <div class="col-md-4">
       <div class="centered">
         <h4>Análise</h4>
+        <!-- solution -->
         <% if @incident.status == Enumerations::IncidentStatus::PENDING%>
           <%= @incident.pending_description %>
         <% else %>
@@ -70,8 +99,8 @@
           <th>Escopo do Problema</th>
           <th>Tipo do Erro</th>
         <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
-          <th>Motivo da Reabertura</th>
-        <% end %>
+          <th><span class='label label-danger'>Motivo da Reabertura</span></th>
+      <% end %>
       </tr>
       </thead>
       <tbody>
@@ -85,7 +114,6 @@
           <td><%= @incident.entity %></td>
         <% elsif @incident.status == Enumerations::IncidentStatus::REOPENED %>
           <td><%= @incident.reopening_description %></td>
-
         <% end %>
       </tr>
       </tbody>

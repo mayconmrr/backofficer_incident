@@ -27,15 +27,38 @@
         </tr>
         </tbody>
       </table>
-      <div class="col-md-6">
-        <h4>Descrição do Problema</h4>
-        <br />
-        <%= @incident.problem_description %>
-      </div>
-      <div class="col-md-6">
-        <h4>Tela de Evidência</h4>
-        <br />
-        <%=  image_tag @incident.evidence_screen.url(:medium) %>
+      <div class="panel-body">
+        <div class="col-md-4">
+          <div class="centered">
+            <h4>Descrição do Problema</h4>
+            <%= @incident.problem_description %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="centered">
+            <h4>Tela de Evidência</h4>
+            <!-- evidence_screen -->
+
+            <% if @incident.evidence_screen.file? %>
+              <%= link_to @incident.evidence_screen.url(:large) do %>
+                <%= image_tag @incident.evidence_screen.url(:medium) %>
+              <% end %>
+            <% else %>
+              <%= image_tag @incident.evidence_screen.url(:medium) %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="centered">
+            <h4>Análise</h4>
+            <!-- solution -->
+            <% if @incident.status == Enumerations::IncidentStatus::PENDING%>
+              <%= @incident.pending_description %>
+            <% else %>
+              <%= @incident.solution_description %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

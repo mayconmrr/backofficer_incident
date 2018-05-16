@@ -1,0 +1,24 @@
+pt-BR:
+  models:
+    incident:
+      problem_kind: Tipo do Problema
+      priority_level: Nível de Prioridade
+      problem_description: Descrição do Problema
+      pending_description: Motivo Pendente
+      solution_description: Descrição da Solução
+      reopened_description: Descrição da Reabertura
+      user_email: Email do Usuário
+      user_cpf: CPF do Usuário
+      contract_id: ID do Contrato
+      title: Título
+      status: Status
+      analysis_time: Tempo de Análise
+      analysis_started_at: Início da Análise
+      solved_at: Resolvido Em
+      entity: Entidade
+      plataform_kind: Tipo da Plataforma
+      captured_by: Capturado Por
+      pending_reason: Motivo da Pendência
+      reopening_description: Motivo da Reabertura
+      reopened_by: Reaberto Por
+      evidence_screen: Tela de Erro

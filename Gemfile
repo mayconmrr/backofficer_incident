@@ -31,6 +31,7 @@ gem 'enumerate_it', '~> 1.6', '>= 1.6.1'
 gem 'awesome_print', '~> 1.8.0'
 gem 'pg'
 gem 'lerolero_generator'
+gem 'bootsnap'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

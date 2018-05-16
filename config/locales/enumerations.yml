@@ -1,0 +1,35 @@
+pt-BR:
+  enumerations:
+    enumerations/incident_entity:
+      contract: Contrato
+      customer: Cliente
+      backofficer: Backofficer
+      broker: Corretor
+      claim: Sinistro
+      assistence: Assistência
+      other: Outro
+    enumerations/incident_plataform:
+      app: Aplicativo
+      web: Site
+      both: Ambos
+    enumerations/incident_status:
+      open: Aberto
+      solved: Resolvido
+      reopened: Reaberto
+      analysing: Em Análise
+      pending: Pendente
+      closed: Encerrado
+    enumerations/pending_reason:
+      supplier_block: Bloqueio por Fornecedor
+      information_missing: Falta de Informação
+    enumerations/priority_level:
+      low: Baixo
+      medium: Médio
+      high: Alto
+    enumerations/problem_kind:
+      bug_system: Bug de Sistema
+      user_request:
+      miseu: Mal Uso do Sistema
+      not_specified: Não Especificado
+
+
