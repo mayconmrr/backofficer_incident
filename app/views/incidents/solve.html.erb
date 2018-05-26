@@ -1,4 +1,4 @@
-<%= form_for @incident, :url => incident_solution_path(@incident) do |f| %>
+<%= form_for @incident, html: { multipart: true } do |f| %>
   <div class="panel panel-primary">
   <div class="panel-heading">Resumo da Requisição</div>
   <div class="panel-body">
@@ -49,20 +49,18 @@
         <div class="panel-heading">
         </div>
         <div class="panel-body">
+
             <div class="form-group">
               <%= f.label :Tipo, class:"col-md-3 control-label" %>
               <div class="col-md-9">
-                <%= f.select :problem_kind, Enumerations::ProblemKind.keys, { prompt: "Selecione o tipo de problema do requisição" }, { class: "form-control"} %>
+                <%= f.select :problem_kind, Enumerations::ProblemKind.to_a, { prompt: "Selecione o tipo de problema do requisição" }, { class: "form-control"} %>
               </div>
             </div>
 
             <div class="form-group">
               <%= f.label :Contexto, class:"col-md-3 control-label" %>
               <div class="col-md-9">
-                <%= f.select :entity, Enumerations::IncidentEntity.translations , { prompt: "Selecione o tipo de problema do requisição" }, { class: "form-control"} %>
-
-
-
+                <%= f.select :entity, Enumerations::IncidentEntity.to_a , { prompt: "Selecione o tipo de problema do requisição" }, { class: "form-control"} %>
               </div>
             </div>
 

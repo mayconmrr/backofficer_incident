@@ -54,7 +54,7 @@
           <div class="form-group">
             <%= f.label :Contexto, class:"col-md-3 control-label" %>
             <div class="col-md-9">
-              <%= f.select :pending_reason, Enumerations::PendingReason.keys, { prompt: "Selecione o motivo do bloqueio da análise" }, { class: "form-control"} %>
+              <%= f.select :pending_reason, Enumerations::PendingReason.to_a, { prompt: "Selecione o motivo do bloqueio da análise" }, { class: "form-control"} %>
             </div>
           </div>
 

@@ -3,7 +3,7 @@ class Incident < ApplicationRecord
   belongs_to :analyst, optional: true
   before_update :solve_params
 
-  validates :title, presence: true, length: { maximum: 40 }
+  validates :title, presence: true, length: { maximum: 50 }
   validates_presence_of :problem_description
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -36,6 +36,10 @@ class Incident < ApplicationRecord
                                        create_helpers: true, create_scopes: true
 
   private
+
+  def self.human_enum_name(enum_name, enum_value)
+    #I18n.t("enumerations.enumerations/#{model_name.i18n_key}.#{enum_name.to_s}.#{enum_value}")
+  end
 
   def solve_params
     if self.status == Enumerations::IncidentStatus::SOLVED

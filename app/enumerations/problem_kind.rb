@@ -4,7 +4,8 @@ module Enumerations
       :bug_system,
       :user_request,
       :miseu,
-      :not_specified
+      :not_specified,
+      :backofficer_mistake
     )
   end
 end

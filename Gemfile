@@ -33,6 +33,12 @@ gem 'pg'
 gem 'lerolero_generator'
 gem 'bootsnap'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap', '3.3.7'
+  gem 'rails-assets-bootstrap.growl'
+  gem 'rails-assets-animate-css'
+end
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'

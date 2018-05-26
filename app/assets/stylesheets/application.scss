@@ -2,6 +2,8 @@
 @import "bootstrap";
 @import "style";
 @import "custom";
+@import "animate-css";
+
 
 
 td {
@@ -70,4 +72,14 @@ td {
 
 .jumbotron{
   border: 2px solid #000;
+}
+
+/** Bootstrap Notify **/
+[data-notify="progressbar"] {
+  margin-bottom:  0px;
+  position:  absolute;
+  bottom:  0px;
+  left:  0px;
+  width:  100%;
+  height:  5px;
 }

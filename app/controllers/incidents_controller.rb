@@ -8,7 +8,6 @@ class IncidentsController < ApplicationController
   before_action :check_to_resolve, only: [:solution]
   include UserHelper
 
-  def show; end
 
   def my_incidents
     if backofficer_signed_in?
@@ -18,12 +17,16 @@ class IncidentsController < ApplicationController
     end
   end
 
-  def index
-    @incidents = Incident.all.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
+  def search
+    @incidents = Incident.search(params[:q]).paginate(page: params[:page], per_page: 10)
   end
 
   def new
     @incident = Incident.new
+  end
+
+  def index
+    @incidents = Incident.all.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
   end
 
   def create
@@ -41,15 +44,21 @@ class IncidentsController < ApplicationController
     end
   end
 
+  def show; end
+
   def edit; end
+
+  def solve; end
 
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: 'Incident was successfully updated.' }
+        format.html { redirect_to @incident, notice: "Requisição de urgência atualizada. Status: ##{@incident.status} - Prioridade ##{@incident.priority_level}"}
         format.json { render :show, status: :ok }
       else
-        format.html { render :new }
+        flash.now[:danger] = "Email address not found"
+
+        format.html { render :new, notice: 'Valor digitado não é válido. Depósito negado.' }
         format.json { render json: @incident.errors, status: :unprocessable_entity }
       end
     end
@@ -66,20 +75,6 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
-  def solve; end
-
-  def solution
-    respond_to do |format|
-      if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: 'Requisição de urgência solucionada com sucesso.' }
-        format.json { render :show, status: :ok }
-      else
-        format.html { render :new }
-        format.json { render json: @incident.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def pending
     flash[:notice] = 'Requisição atualizada para pendente.'
   end
@@ -92,11 +87,6 @@ class IncidentsController < ApplicationController
   def reopen
     flash[:notice] = 'Requisição de urgência reaberta!'
   end
-
-  def search
-    @incidents = Incident.search(params[:q]).paginate(page: params[:page], per_page: 10)
-  end
-
   private
 
   def set_incident
