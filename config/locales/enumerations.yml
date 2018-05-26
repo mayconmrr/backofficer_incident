@@ -7,6 +7,9 @@ pt-BR:
       broker: Corretor
       claim: Sinistro
       assistence: Assistência
+      policy: Apólice
+      trips: Trips
+      supplier: Fornecedor
       other: Outro
     enumerations/incident_plataform:
       app: Aplicativo
@@ -28,8 +31,9 @@ pt-BR:
       high: Alto
     enumerations/problem_kind:
       bug_system: Bug de Sistema
-      user_request:
-      miseu: Mal Uso do Sistema
+      user_request: Funcionalidade Inexistente
+      miseu: Mau Uso do Sistema
       not_specified: Não Especificado
+      backofficer_mistake: Aberto Indevidamente
 
 

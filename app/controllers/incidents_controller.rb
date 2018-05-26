@@ -1,13 +1,25 @@
 class IncidentsController < ApplicationController
-  before_action :set_incident, only: [:update, :edit, :destroy, :show, :analyse, :capture, :reopen, :solve, :solution, :pending]
-  before_action :authenticate_user, only: [:my_incidents, :search, :index]
-  before_action :authenticate_backofficer!, only: [:create]
-  before_action :authenticate_analyst!, only: [:analyse, :solve, :capture, :solution]
+  before_action :set_incident, only: %i[update edit destroy show analyse
+                                        capture reopen solve solution
+                                        pending check_to_update]
 
+  before_action :authenticate_user, only: %i[my_incidents search index]
+  before_action :authenticate_backofficer!, only: [:create]
+  before_action :authenticate_analyst!, only: %i[analyse solve capture solution]
   before_action :check_to_reopen, only: [:reopen]
   before_action :check_to_resolve, only: [:solution]
+  before_action :check_to_update, only: [:update]
   include UserHelper
 
+  def show; end
+
+  def edit; end
+
+  def solve; end
+
+  def pending; end
+
+  def reopen; end
 
   def my_incidents
     if backofficer_signed_in?
@@ -30,12 +42,10 @@ class IncidentsController < ApplicationController
   end
 
   def create
-    @incident = Incident.new(incident_params)
-    @incident.backofficer = current_backofficer
-
+    @incident = current_backofficer.incidents.build(incident_params)
     respond_to do |format|
       if @incident.save
-        format.html { redirect_to @incident, notice: 'Incident was successfully created.' }
+        format.html { redirect_to @incident, notice: 'Requisição de urgência criada com sucesso.' }
         format.json { render :show, status: :ok }
       else
         format.html { render :new }
@@ -44,29 +54,22 @@ class IncidentsController < ApplicationController
     end
   end
 
-  def show; end
-
-  def edit; end
-
-  def solve; end
-
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        format.html { redirect_to @incident, notice: "Requisição de urgência atualizada. Status: ##{@incident.status} - Prioridade ##{@incident.priority_level}"}
+        if incident_params[:status].nil? || incident_params[:status] == Enumerations::IncidentStatus::PENDING
+          format.html { redirect_to @incident, notice: 'Requisição de urgência atualizada com sucesso.' }
+        elsif incident_params[:status] == Enumerations::IncidentStatus::REOPENED
+          format.html { redirect_to @incident, notice: 'Requisição de urgência reaberta.' }
+        elsif incident_params[:status] == Enumerations::IncidentStatus::SOLVED
+          format.html { redirect_to @incident, notice: 'Requisição de urgência resolvida.' }
+        end
         format.json { render :show, status: :ok }
       else
-        flash.now[:danger] = "Email address not found"
-
-        format.html { render :new, notice: 'Valor digitado não é válido. Depósito negado.' }
+        format.html { render :new }
         format.json { render json: @incident.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def destroy
-    @incident.destroy
-    format.html { redirect_to root, notice: 'Incident was successfully destroyed.' }
   end
 
   def analyse
@@ -75,18 +78,11 @@ class IncidentsController < ApplicationController
     redirect_to @incident
   end
 
-  def pending
-    flash[:notice] = 'Requisição atualizada para pendente.'
-  end
-
   def capture
     @incident.update(analyst_id: current_analyst.id, captured_by: current_analyst.name)
     redirect_to @incident
   end
 
-  def reopen
-    flash[:notice] = 'Requisição de urgência reaberta!'
-  end
   private
 
   def set_incident
@@ -104,7 +100,8 @@ class IncidentsController < ApplicationController
                                      :analysis_time, :solution_time, :entity,
                                      :evidence_screen, :pending_description,
                                      :user_cpf, :contract_id, :plataform_kind,
-                                     :reopening_description)
+                                     :reopening_description, :reopened_by,
+                                     :incident_reopened, :pending_reason)
   end
 
   def authenticate_user
@@ -131,6 +128,21 @@ class IncidentsController < ApplicationController
     (@incident.status == Enumerations::IncidentStatus::SOLVED ||
         @incident.status == Enumerations::IncidentStatus::REOPENED) &&
         authenticate_backofficer!
+  end
+
+  def check_to_update
+    if incident_params[:status] == Enumerations::IncidentStatus::REOPENED && incident_params[:reopening_description].blank?
+      flash[:alert] = 'Requisição não foi rebaberta. Motivo da reabertura deve ser preenchido.'
+      redirect_to @incident
+    elsif incident_params[:status] == Enumerations::IncidentStatus::SOLVED &&
+        (incident_params[:solution_description].blank? || incident_params[:entity].blank?)
+      flash[:alert] = 'Requisição não foi resolvida. Análise e contexto devem ser preenchidos.'
+      redirect_to solve_path(id: @incident.id)
+    elsif incident_params[:status] == Enumerations::IncidentStatus::PENDING &&
+        (incident_params[:pending_reason].blank? || incident_params[:pending_description].blank?)
+      flash[:alert] = 'Requisição não foi atualizada. Tipo e motivo do bloqueio devem ser preenchidos.'
+      redirect_to pending_path(id: @incident.id)
+    end
   end
 end
 

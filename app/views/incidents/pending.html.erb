@@ -52,14 +52,14 @@
         <div class="panel-body">
 
           <div class="form-group">
-            <%= f.label :Contexto, class:"col-md-3 control-label" %>
+            <%= f.label :Tipo_do_bloqueio, class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.select :pending_reason, Enumerations::PendingReason.to_a, { prompt: "Selecione o motivo do bloqueio da análise" }, { class: "form-control"} %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :Motivo_da_pendencia, class:"col-md-3 control-label" %>
+            <%= f.label :Motivo_do_bloqueio, class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_area :pending_description, class:"form-control", placeholder: "Problema não pode ser resolvido por problemas na seguradora x" %>
             </div>
