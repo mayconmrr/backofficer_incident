@@ -32,6 +32,7 @@ gem 'awesome_print', '~> 1.8.0'
 gem 'pg'
 gem 'lerolero_generator'
 gem 'bootsnap'
+gem 'figaro'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '3.3.7'

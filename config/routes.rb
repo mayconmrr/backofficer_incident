@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :analysts
-  devise_for :backofficers
+  devise_for :backofficers, controllers: { confirmations: 'confirmations' }
 
   resources :incidents do
     patch :analyse

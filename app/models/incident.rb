@@ -9,7 +9,12 @@ class Incident < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :user_email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
-  has_attached_file :evidence_screen, styles: {  large: '1200x800>', medium: '300x300>', thumb: '100x100>' }, default_url: 'missing.png'
+  has_attached_file :evidence_screen,
+                    styles: {  large: '1200x800>',
+                               medium: '300x300>',
+                               thumb: '100x100>' },
+                    default_url: 'missing.png'
+
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
 
   scope :search, ->(term, page) {
