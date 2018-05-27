@@ -6,14 +6,14 @@ class Analyst < ApplicationRecord
 
   has_many :incidents
 
-  THINK_DOMAINS = ['thinkseg.com', 'grgcapital.com']
+  THINK_DOMAINS = %w[thinkseg.com grgcapital.com].freeze
   validates :email, presence: true, if: :domain_check
 
   private
 
   def domain_check
-    unless THINK_DOMAINS.any? { |word| email.end_with?(word)}
-      errors.add(:email, 'You must be a thinkser to login.')
+    unless THINK_DOMAINS.any? { |word| email.end_with?(word) }
+      errors.add(:email, :forbidden_email)
     end
   end
 end

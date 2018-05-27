@@ -7,7 +7,7 @@ class IncidentsController < ApplicationController
   before_action :authenticate_backofficer!, only: [:create]
   before_action :authenticate_analyst!, only: %i[analyse solve capture solution]
   before_action :check_to_reopen, only: [:reopen]
-  before_action :check_to_resolve, only: [:solution]
+  before_action :check_to_solve, only: [:solve]
   before_action :check_to_update, only: [:update]
   include UserHelper
 
@@ -114,11 +114,11 @@ class IncidentsController < ApplicationController
     end
   end
 
-  def check_to_resolve
+  def check_to_solve
     if @incident.status == Enumerations::IncidentStatus::ANALYSING && @incident.analyst == current_analyst
       true
     else
-      flash[:danger] = 'Você não tem permissão para resolver essa requisição.'
+      flash[:alert] = 'Você não tem permissão para resolver essa requisição.'
       redirect_to @incident
     end
   end
