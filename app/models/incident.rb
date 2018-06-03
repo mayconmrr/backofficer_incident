@@ -17,7 +17,7 @@ class Incident < ApplicationRecord
 
   validates_attachment_content_type :evidence_screen, content_type: /\Aimage\/.*\z/
 
-  scope :search, ->(term, page) {
+  scope :search, ->(term) {
     (where('lower(title) LIKE ?', "%#{term.downcase}%") +
         where('lower(problem_description) LIKE ?', "%#{term.downcase}%")).uniq
   }
