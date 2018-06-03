@@ -97,15 +97,14 @@ Rails.application.configure do
   #   password: ENV['SENDGRID_PASSWORD']
   # }
 
-  # ATUALIZAR
-  # Paperclip::Attachment.default_options.merge!(
-  #   storage: :s3,
-  #   bucket: 'bucketname',
-  #   s3_credentials: {
-  #     access_key_id: ENV['S3_ACCESS_KEY'],
-  #     secret_access_key: ENV['S3_SECRET_KEY']
-  #   }
-  # )
+  Paperclip::Attachment.default_options.merge!(
+    storage: :s3,
+    bucket: ENV['S3_BUCKET_NAME'],
+    s3_credentials: {
+      access_key_id: ENV['S3_ACCESS_KEY'],
+      secret_access_key: ENV['S3_SECRET_KEY']
+    }
+  )
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
