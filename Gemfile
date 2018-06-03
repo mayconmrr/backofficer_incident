@@ -34,11 +34,11 @@ gem 'lerolero_generator', '~> 1.0', '>= 1.0.1'
 gem 'bootsnap', '~> 1.3'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
-
-gem 'rails-assets-bootstrap', '3.3.7'
-gem 'rails-assets-bootstrap.growl'
-gem 'rails-assets-animate-css'
-
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap', '3.3.7'
+  gem 'rails-assets-bootstrap.growl'
+  gem 'rails-assets-animate-css'
+end
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
