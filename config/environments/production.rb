@@ -82,30 +82,30 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # ATUALIZAR
-  config.action_mailer.default_url_options = { host: ENV.fetch('URL_SENDGRID') }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default charset: 'utf-8'
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
-    port: 587,
-    domain: 'ATUALIZAR',
-    authentication: 'plain',
-    enable_starttls_auto: true,
-    user_name: ENV['SENDGRID_USERNAME'],
-    password: ENV['SENDGRID_PASSWORD']
-  }
+  # config.action_mailer.default_url_options = { host: ENV.fetch('URL_SENDGRID') }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
+  # config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default charset: 'utf-8'
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.sendgrid.net',
+  #   port: 587,
+  #   domain: 'ATUALIZAR',
+  #   authentication: 'plain',
+  #   enable_starttls_auto: true,
+  #   user_name: ENV['SENDGRID_USERNAME'],
+  #   password: ENV['SENDGRID_PASSWORD']
+  # }
 
   # ATUALIZAR
-  Paperclip::Attachment.default_options.merge!(
-    storage: :s3,
-    bucket: 'bucketname',
-    s3_credentials: {
-      access_key_id: ENV['S3_ACCESS_KEY'],
-      secret_access_key: ENV['S3_SECRET_KEY']
-    }
-  )
+  # Paperclip::Attachment.default_options.merge!(
+  #   storage: :s3,
+  #   bucket: 'bucketname',
+  #   s3_credentials: {
+  #     access_key_id: ENV['S3_ACCESS_KEY'],
+  #     secret_access_key: ENV['S3_SECRET_KEY']
+  #   }
+  # )
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
