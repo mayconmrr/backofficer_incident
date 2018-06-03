@@ -42,10 +42,6 @@ class Incident < ApplicationRecord
 
   private
 
-  def self.human_enum_name(enum_name, enum_value)
-    #I18n.t("enumerations.enumerations/#{model_name.i18n_key}.#{enum_name.to_s}.#{enum_value}")
-  end
-
   def solve_params
     if self.status == Enumerations::IncidentStatus::SOLVED
       self.solved_at = DateTime.now
