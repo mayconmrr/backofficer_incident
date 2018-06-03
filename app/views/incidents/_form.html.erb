@@ -26,21 +26,21 @@
           <% end %>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.title"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.title"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :title, autofocus: true, class:"form-control", placeholder: "Usuario com problema para ativar cobertura", :maxlength => "50" %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label  I18n.t("models.incident.priority_level"), class:"col-md-3 control-label" %>
+            <%= f.label  I18n.t("activerecord.models.attributes.incident.priority_level"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.select :priority_level, Enumerations::PriorityLevel.to_a, { prompt: "Selecione o nível de criticidade da requisição." }, { class: "form-control"} %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.problem_description"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.problem_description"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_area :problem_description, class:"form-control", placeholder:"Ex: O usúario x não consegue efetuar a opção y na tela z", :maxlength => "550" %>
             </div>
@@ -49,7 +49,7 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
-                <%= f.label I18n.t("models.incident.evidence_screen"), class:"col-md-3 control-label" %>
+                <%= f.label I18n.t("activerecord.models.attributes.incident.evidence_screen"), class:"col-md-3 control-label" %>
                 <div class="col-md-9">
                   <%= f.file_field :evidence_screen, as: :file %>
                 </div>
@@ -58,29 +58,35 @@
           </div>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.plataform_kind"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.plataform_kind"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.select :plataform_kind, Enumerations::IncidentPlataform.to_a, { prompt: "Selecione em qual plataforma ocorre o erro." }, { class: "form-control"} %>
             </div>
           </div>
 
+          <div class="form-group">
+            <%= f.label I18n.t("activerecord.models.attributes.incident.user_name"), class:"col-md-3 control-label" %>
+            <div class="col-md-9">
+              <%= f.text_field :user_name, class:"form-control" %>
+            </div>
+          </div>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.user_email"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.user_email"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :user_email, class:"form-control", placeholder:"Ex: customer@tksg.com" %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.user_cpf"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.user_cpf"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :user_cpf, class:"form-control", placeholder:"Ex: 78066395353" %>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label I18n.t("models.incident.contract_id"), class:"col-md-3 control-label" %>
+            <%= f.label I18n.t("activerecord.models.attributes.incident.contract_id"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
               <%= f.text_field :contract_id, class:"form-control", placeholder:"Ex: 17908" %>
             </div>

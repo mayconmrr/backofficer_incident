@@ -33,6 +33,7 @@ pt-BR:
           reopening_description: Motivo da Reabertura
           reopened_by: Reaberto Por
           evidence_screen: Tela de Erro
+          user_name: Nome do Usuário
         backofficer:
           email: E-mail
           name: Nome

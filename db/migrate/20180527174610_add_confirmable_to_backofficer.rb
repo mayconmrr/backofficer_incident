@@ -1,4 +1,4 @@
-class AddConfirmableToDevise < ActiveRecord::Migration[5.1]
+class AddConfirmableToBackofficer < ActiveRecord::Migration[5.1]
   def up
     add_column :backofficers, :confirmation_token, :string
     add_column :backofficers, :confirmed_at, :datetime

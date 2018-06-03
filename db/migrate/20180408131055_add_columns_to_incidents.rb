@@ -6,5 +6,6 @@ class AddColumnsToIncidents < ActiveRecord::Migration[5.1]
     add_column :incidents, :reopening_description, :string
     add_column :incidents, :incident_reopened, :boolean, default: false
     add_column :incidents, :reopened_by, :string, null: true
+    add_column :incidents, :user_name, :string, null: true
   end
 end
