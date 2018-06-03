@@ -33,7 +33,7 @@ gem 'pg', '~> 1.0'
 gem 'lerolero_generator', '~> 1.0', '>= 1.0.1'
 gem 'bootsnap', '~> 1.3'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
-gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
+gem 'aws-sdk', '2.10.47'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap', '3.3.7'
