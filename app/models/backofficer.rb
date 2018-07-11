@@ -6,7 +6,7 @@ class Backofficer < ApplicationRecord
 
   has_many :incidents
 
-  THINK_DOMAINS = %w[thinkseg.com grgcapital.com].freeze
+  THINK_DOMAINS = %w[thinkseg.com grgcapital.com bidu.com.br].freeze
   validates :email, presence: true, if: :domain_check
 
   private
