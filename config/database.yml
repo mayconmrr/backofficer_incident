@@ -3,7 +3,7 @@ development:
   encoding: utf8
   database: backofficer_incident_development
   pool: 5
-  username: 
+  username:
   password:
 
 test: &TEST
@@ -11,7 +11,7 @@ test: &TEST
   encoding: utf8
   database: backofficer_incident_test
   pool: 5
-  username: 
+  username:
   password:
 
 production:
@@ -19,5 +19,5 @@ production:
   encoding: utf8
   database: backofficer_incident_development
   pool: 5
-  username: 
+  username:
   password:

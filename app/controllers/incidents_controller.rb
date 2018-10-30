@@ -12,13 +12,9 @@ class IncidentsController < ApplicationController
   include UserHelper
 
   def show; end
-
   def edit; end
-
   def solve; end
-
   def pending; end
-
   def reopen; end
 
   def my_incidents
@@ -95,13 +91,10 @@ class IncidentsController < ApplicationController
 
   def incident_params
     params.require(:incident).permit(:problem_kind, :priority_level, :analyst_id,
-                                     :problem_description, :user_email, :title,
-                                     :status, :solution_description,
-                                     :analysis_time, :solution_time, :entity,
-                                     :evidence_screen, :pending_description,
-                                     :user_cpf, :contract_id, :plataform_kind,
-                                     :reopening_description, :reopened_by,
-                                     :incident_reopened, :pending_reason)
+    :problem_description, :user_email, :title, :status, :solution_description,
+    :analysis_time, :solution_time, :entity, :evidence_screen, :pending_description,
+    :user_cpf, :contract_id, :plataform_kind,:reopening_description, :reopened_by,
+    :incident_reopened, :pending_reason)
   end
 
   def authenticate_user
@@ -145,4 +138,3 @@ class IncidentsController < ApplicationController
     end
   end
 end
-

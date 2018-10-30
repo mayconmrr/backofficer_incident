@@ -61,9 +61,9 @@ pt-BR:
     errors:
       models:
         analyst:
-          forbidden_email: Você precisa ser um thinker para conluir o registro!
+          forbidden_email: Você precisa ser um company member para conluir o registro!
         backofficer:
-          forbidden_email: Você precisa ser um thinker para conluir o registro!
+          forbidden_email: Você precisa ser um company member para conluir o registro!
       messages:
         record_invalid: 'A validação falhou: %{errors}'
         restrict_dependent_destroy:

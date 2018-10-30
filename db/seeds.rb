@@ -1,10 +1,9 @@
-
 #====================== Analyst ======================#
 puts 'Creating Analyst...'
 
 analyst = Analyst.new(
   name: 'Analista Default',
-  email: 'analyst@thinkseg.com',
+  email: 'analyst@company.com',
   password: '123123',
   password_confirmation: '123123'
 )
@@ -19,7 +18,7 @@ puts 'Creating Backofficer...'
 
 backofficer = Backofficer.new(
   name: 'Backofficer Default',
-  email: 'backofficer@thinkseg.com',
+  email: 'backofficer@company.com',
   password: '123123',
   password_confirmation: '123123'
 )
