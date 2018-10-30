@@ -1,24 +1,16 @@
-# README
+# Backofficer Incident
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Software to control internal incidents of a startup company.
+Is possible to set the urgency and to add information to a specific incident.
 
-Things you may want to cover:
+## Ruby Verion
+Ruby 2.4.0
 
-* Ruby version
+## Rails Version
+Rails 5.1.2
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup
+Run in your console:
+```
+bin/setup
+```
