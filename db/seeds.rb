@@ -33,9 +33,9 @@ unless Rails.env.production?
   puts 'Creating Fake Incidents...'
   25.times do
     incident = Incident.new(
-      title: Faker::Name,
+      title: Faker::Name.name,
       priority_level: PriorityLevel.list.sample,
-      problem_description: Faker::Lorem.paragraph([1,2,3].sample),
+      problem_description: Faker::Lorem.paragraph(sentence_count: [1,2,3].sample),
       plataform_kind: IncidentPlataform.list.sample,
       user_email: Faker::Internet.email,
       user_cpf: rand(12),

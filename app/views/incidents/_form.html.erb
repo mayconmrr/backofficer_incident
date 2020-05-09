@@ -35,7 +35,7 @@
           <div class="form-group">
             <%= f.label  I18n.t("activerecord.models.attributes.incident.priority_level"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
-              <%= f.select :priority_level, Enumerations::PriorityLevel.to_a, { prompt: "Selecione o nível de criticidade da requisição." }, { class: "form-control"} %>
+              <%= f.select :priority_level, PriorityLevel.to_a, { prompt: "Selecione o nível de criticidade da requisição." }, { class: "form-control"} %>
             </div>
           </div>
 
@@ -60,7 +60,7 @@
           <div class="form-group">
             <%= f.label I18n.t("activerecord.models.attributes.incident.plataform_kind"), class:"col-md-3 control-label" %>
             <div class="col-md-9">
-              <%= f.select :plataform_kind, Enumerations::IncidentPlataform.to_a, { prompt: "Selecione em qual plataforma ocorre o erro." }, { class: "form-control"} %>
+              <%= f.select :plataform_kind, IncidentPlataform.to_a, { prompt: "Selecione em qual plataforma ocorre o erro." }, { class: "form-control"} %>
             </div>
           </div>
 

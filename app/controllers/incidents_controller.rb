@@ -53,11 +53,11 @@ class IncidentsController < ApplicationController
   def update
     respond_to do |format|
       if @incident.update(incident_params)
-        if incident_params[:status].nil? || incident_params[:status] == Enumerations::IncidentStatus::PENDING
+        if incident_params[:status].nil? || incident_params[:status] == IncidentStatus::PENDING
           format.html { redirect_to @incident, notice: 'Requisição de urgência atualizada com sucesso.' }
-        elsif incident_params[:status] == Enumerations::IncidentStatus::REOPENED
+        elsif incident_params[:status] == IncidentStatus::REOPENED
           format.html { redirect_to @incident, notice: 'Requisição de urgência reaberta.' }
-        elsif incident_params[:status] == Enumerations::IncidentStatus::SOLVED
+        elsif incident_params[:status] == IncidentStatus::SOLVED
           format.html { redirect_to @incident, notice: 'Requisição de urgência resolvida.' }
         end
         format.json { render :show, status: :ok }
@@ -69,7 +69,7 @@ class IncidentsController < ApplicationController
   end
 
   def analyse
-    @incident.update(status: Enumerations::IncidentStatus::ANALYSING, analyst: current_analyst, analysis_started_at: DateTime.now)
+    @incident.update(status: IncidentStatus::ANALYSING, analyst: current_analyst, analysis_started_at: DateTime.now)
     flash[:notice] = 'Requisição em análise'
     redirect_to @incident
   end
@@ -108,7 +108,7 @@ class IncidentsController < ApplicationController
   end
 
   def check_to_solve
-    if @incident.status == Enumerations::IncidentStatus::ANALYSING && @incident.analyst == current_analyst
+    if @incident.status == IncidentStatus::ANALYSING && @incident.analyst == current_analyst
       true
     else
       flash[:alert] = 'Você não tem permissão para resolver essa requisição.'
@@ -118,20 +118,20 @@ class IncidentsController < ApplicationController
 
   def check_to_reopen
     redirect_to @incident unless
-    (@incident.status == Enumerations::IncidentStatus::SOLVED ||
-        @incident.status == Enumerations::IncidentStatus::REOPENED) &&
+    (@incident.status == IncidentStatus::SOLVED ||
+        @incident.status == IncidentStatus::REOPENED) &&
         authenticate_backofficer!
   end
 
   def check_to_update
-    if incident_params[:status] == Enumerations::IncidentStatus::REOPENED && incident_params[:reopening_description].blank?
+    if incident_params[:status] == IncidentStatus::REOPENED && incident_params[:reopening_description].blank?
       flash[:alert] = 'Requisição não foi rebaberta. Motivo da reabertura deve ser preenchido.'
       redirect_to @incident
-    elsif incident_params[:status] == Enumerations::IncidentStatus::SOLVED &&
+    elsif incident_params[:status] == IncidentStatus::SOLVED &&
         (incident_params[:solution_description].blank? || incident_params[:entity].blank?)
       flash[:alert] = 'Requisição não foi resolvida. Análise e contexto devem ser preenchidos.'
       redirect_to solve_path(id: @incident.id)
-    elsif incident_params[:status] == Enumerations::IncidentStatus::PENDING &&
+    elsif incident_params[:status] == IncidentStatus::PENDING &&
         (incident_params[:pending_reason].blank? || incident_params[:pending_description].blank?)
       flash[:alert] = 'Requisição não foi atualizada. Tipo e motivo do bloqueio devem ser preenchidos.'
       redirect_to pending_path(id: @incident.id)

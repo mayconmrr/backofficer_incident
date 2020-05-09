@@ -54,7 +54,7 @@
           <div class="form-group">
             <%= f.label :Tipo_do_bloqueio, class:"col-md-3 control-label" %>
             <div class="col-md-9">
-              <%= f.select :pending_reason, Enumerations::PendingReason.to_a, { prompt: "Selecione o motivo do bloqueio da análise" }, { class: "form-control"} %>
+              <%= f.select :pending_reason, PendingReason.to_a, { prompt: "Selecione o motivo do bloqueio da análise" }, { class: "form-control"} %>
             </div>
           </div>
 
@@ -65,7 +65,7 @@
             </div>
           </div>
 
-          <%= f.hidden_field :status, value: Enumerations::IncidentStatus::PENDING %>
+          <%= f.hidden_field :status, value: IncidentStatus::PENDING %>
 
           <div class="form-group">
             <div class="col-md-offset-3 col-md-9">

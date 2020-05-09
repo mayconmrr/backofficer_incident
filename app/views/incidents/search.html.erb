@@ -25,11 +25,11 @@
           <tr style= "background: <%= cycle('white', 'ice') %>">
             <td><%= incident.title %></td>
 
-            <% if incident.priority_level == Enumerations::PriorityLevel::LOW %>
+            <% if incident.priority_level == PriorityLevel::LOW %>
               <td><span class='label label-info'><%= incident.priority_level %></span></td>
-            <% elsif incident.priority_level == Enumerations::PriorityLevel::MEDIUM %>
+            <% elsif incident.priority_level == PriorityLevel::MEDIUM %>
               <td><span class='label label-warning'><%= incident.priority_level %></span></td>
-            <% elsif incident.priority_level == Enumerations::PriorityLevel::HIGH %>
+            <% elsif incident.priority_level == PriorityLevel::HIGH %>
               <td><span class='label label-danger'><%= incident.priority_level %></span></td>
             <% end %>
 
@@ -37,17 +37,17 @@
             <td><%= brazil_date(incident.created_at) %></td>
             <td><%= brazil_date(incident.updated_at) %></td>
 
-            <% if incident.status == Enumerations::IncidentStatus::SOLVED %>
+            <% if incident.status == IncidentStatus::SOLVED %>
               <td><span class='label label-success'><%= incident.status %></span></td>
-            <% elsif incident.status == Enumerations::IncidentStatus::OPEN %>
+            <% elsif incident.status == IncidentStatus::OPEN %>
               <td><span class='label label-warning'><%= incident.status %></span></td>
-            <% elsif incident.status == Enumerations::IncidentStatus::PENDING %>
+            <% elsif incident.status == IncidentStatus::PENDING %>
               <td><span class='label label-info'><%= incident.status %></span></td>
-            <% elsif incident.status == Enumerations::IncidentStatus::CLOSED %>
+            <% elsif incident.status == IncidentStatus::CLOSED %>
               <td><span class='label label-default'><%= incident.status %></span></td>
-            <% elsif incident.status == Enumerations::IncidentStatus::REOPENED %>
+            <% elsif incident.status == IncidentStatus::REOPENED %>
               <td><span class='label label-danger'><%= incident.status %></span></td>
-            <% elsif incident.status == Enumerations::IncidentStatus::ANALYSING %>
+            <% elsif incident.status == IncidentStatus::ANALYSING %>
               <td><span class='label label-primary'><%= incident.status %></span></td>
             <% end %>
 
@@ -56,33 +56,33 @@
             <% else %>
               <td><%= incident.analyst.name %> </td>
             <% end %>
-            
+
             <% if backofficer_signed_in? %>
-              <% if incident.status == Enumerations::IncidentStatus::OPEN || incident.status == Enumerations::IncidentStatus::REOPENED %>
+              <% if incident.status == IncidentStatus::OPEN || incident.status == IncidentStatus::REOPENED %>
                 <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
                 <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary"%></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::SOLVED %>
+              <% elsif incident.status == IncidentStatus::SOLVED %>
                 <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
                 <td><%= link_to 'Reabrir Incidente', edit_incident_path(incident), class: "btn btn-danger" %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::CLOSED %>
+              <% elsif incident.status == IncidentStatus::CLOSED %>
                 <td><%= link_to 'Detalhes', edit_incident_path(incident), class: "btn btn-default" %></td>
                 <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::ANALYSING %>
+              <% elsif incident.status == IncidentStatus::ANALYSING %>
                 <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
                 <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary disabled", :disabled => true %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::PENDING %>
+              <% elsif incident.status == IncidentStatus::PENDING %>
                 <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
                 <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: "btn btn-primary" %></td>
               <% end %>
             <% else %>
               <td><%= link_to 'Detalhes', incident, class: "btn btn-primary"%></td>
-              <% if incident.status == Enumerations::IncidentStatus::OPEN %>
+              <% if incident.status == IncidentStatus::OPEN %>
                 <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::ANALYSING %>
+              <% elsif incident.status == IncidentStatus::ANALYSING %>
                 <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::PENDING %>
+              <% elsif incident.status == IncidentStatus::PENDING %>
                 <td><%= link_to 'Reiniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger" %></td>
-              <% elsif incident.status == Enumerations::IncidentStatus::SOLVED %>
+              <% elsif incident.status == IncidentStatus::SOLVED %>
                 <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %></td>
               <% end %>
             <% end %>
