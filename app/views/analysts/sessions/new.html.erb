@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3>Login Analista</h3></div>
+  <div class="panel-heading"><h3>Analista</h3></div>
 </div>
 </br>
 
@@ -7,6 +7,9 @@
   <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
       <div class="panel-heading">
+        <div class="centered">
+          <h3>Login Analista</h3>
+        </div>
       </div>
       <div class="panel-body">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -53,4 +56,3 @@
   <%= link_to "Backofficer", new_backofficer_session_path, class: "btn btn-primary" %><br />
 
 </div>
-
