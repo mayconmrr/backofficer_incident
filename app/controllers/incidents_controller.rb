@@ -18,23 +18,21 @@ class IncidentsController < ApplicationController
   def reopen; end
 
   def my_incidents
-    if backofficer_signed_in?
-      @my_incidents = Incident.where(backofficer_id: current_backofficer).paginate(page: params[:page], per_page: 10)
-    else
-      @my_incidents = Incident.where(analyst_id: current_analyst).paginate(page: params[:page], per_page: 10)
-    end
+    @incidents = check_user.incidents.paginate(page: params[:page], per_page: 10)
+    render 'index'
   end
 
   def search
     @incidents = Incident.search(params[:q]).paginate(page: params[:page], per_page: 10)
-  end
-
-  def new
-    @incident = Incident.new
+    render 'index'
   end
 
   def index
     @incidents = Incident.all.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
+  end
+
+  def new
+    @incident = Incident.new
   end
 
   def create
@@ -42,10 +40,8 @@ class IncidentsController < ApplicationController
     respond_to do |format|
       if @incident.save
         format.html { redirect_to @incident, notice: 'Requisição de urgência criada com sucesso.' }
-        format.json { render :show, status: :ok }
       else
         format.html { render :new }
-        format.json { render json: @incident.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,10 +56,8 @@ class IncidentsController < ApplicationController
         elsif incident_params[:status] == IncidentStatus::SOLVED
           format.html { redirect_to @incident, notice: 'Requisição de urgência resolvida.' }
         end
-        format.json { render :show, status: :ok }
       else
         format.html { render :new }
-        format.json { render json: @incident.errors, status: :unprocessable_entity }
       end
     end
   end
