@@ -6,32 +6,7 @@
     <%= javascript_include_tag 'application' %>
   </head>
   <body>
-  <%= render partial: 'layouts/notifications' %>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-        </button>
-        <%= link_to(image_tag('logo_2x.png', alt: 'imagem-logo', class: 'logo'), root_path, class: 'navbar-brand') %>
-      </div>
-
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <% if signed_in? %>
-            <ul class="nav navbar-nav pull-right">
-              <li class="nav-item"><%= link_to "Minhas Requisições", my_incidents_path %></li>
-              <li class="nav-item"><%= link_to "Meus Dados", edit_registration_path(check_user) %></li>
-              <li class="nav-item"><%= link_to "Sair", destroy_session_path(check_user), method: "delete" %></li>
-          <% else %>
-            <li class="nav-item"><%= link_to "Cadastrar", new_backofficer_registration_path, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to "Login", new_backofficer_session_path, class: "nav-link" %></li>
-          <% end %>
-          </ul>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <%= yield %>
+    <%= render partial: 'layouts/navbar' %>
+    <%= yield %>
   </body>
 </html>
