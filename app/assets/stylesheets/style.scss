@@ -14,23 +14,19 @@ body, html {
   line-height: inherit;
 }
 
-#show-gmaps label {
-  width: auto;
-  display:inline;
+#show-gmaps {
+  label {
+    width: auto;
+    display:inline;
+  }
 }
 
 .logo {
-  margin-bottom: -50px;
-  margin-left: 50px;
+  margin-left: 10px;
 }
 
 .navbar-default {
   margin-bottom: 0px;
-}
-
-.navbar-right {
-  padding: 10px;
-  margin-right: 20px;
 }
 
 .footer {

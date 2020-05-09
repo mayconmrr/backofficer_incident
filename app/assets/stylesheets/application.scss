@@ -4,8 +4,6 @@
 @import "custom";
 @import "animate-css";
 
-
-
 td {
   padding: 5px;
   padding-left: 0px
@@ -72,6 +70,10 @@ td {
 
 .jumbotron{
   border: 2px solid #000;
+}
+
+.panel-heading {
+  padding: 4px 15px !important;
 }
 
 /** Bootstrap Notify **/
