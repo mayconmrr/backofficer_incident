@@ -1,19 +1,15 @@
 <div class="container">
-
   <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <div class="panel panel-info">
 
       <div class="panel-heading">
-
         <div class="centered">
           <h3>Dados da Requisição</h3>
         </div>
       </div>
 
-
       <div class="panel-body">
         <%= form_for @incident, html: { multipart: true } do |f| %>
-
           <% if @incident.errors.any? %>
             <div class="alert alert-danger alert-dismissable">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
