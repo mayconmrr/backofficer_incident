@@ -23,11 +23,10 @@ h3, .h3 {
 }
 
 .basic-grey {
-<% x = "#F7F7F7" %>
   margin-left:auto;
   margin-right:auto;
   max-width: 1500px;
-  background: <%= x %>;
+  background: #F7F7F7;
   padding: 25px 15px 25px 10px;
   color: #888;
   border:1px solid #E4E4E4;
@@ -132,7 +131,6 @@ h3, .h3 {
 /* forms */
 
 input, textarea, select, .uneditable-input {
-  #border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
