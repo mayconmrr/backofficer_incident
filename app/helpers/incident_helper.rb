@@ -39,4 +39,18 @@ module IncidentHelper
         'primary'
       end
   end
+
+  def responsible_analyst(incident)
+    incident.analyst.blank? ? 'Sem atendimento' : incident.analyst.name
+  end
+
+  def current_user_actions
+    partial = +"incidents/partials/"
+    partial <<
+      if backofficer_signed_in?
+        'backofficer_actions'
+      elsif analyst_signed_in?
+        'analyst_actions'
+      end
+  end
 end
