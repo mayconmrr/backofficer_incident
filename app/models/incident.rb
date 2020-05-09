@@ -21,7 +21,7 @@ class Incident < ApplicationRecord
         where('lower(problem_description) LIKE ?', "%#{term.downcase}%")).uniq
   }
 
-  has_enumeration_for :status, with: IncidentStatus,
+  has_enumeration_for :status, with: Status,
                                 create_helpers: true, create_scopes: true
 
   has_enumeration_for :problem_kind, with: ProblemKind,
@@ -42,7 +42,7 @@ class Incident < ApplicationRecord
   private
 
   def solve_params
-    if self.status == IncidentStatus::SOLVED
+    if self.status == Status::SOLVED
       self.solved_at = DateTime.now
       unless self.analysis_started_at.nil?
         self.analysis_time = TimeDifference.between(self.solved_at.to_time, self.created_at.to_time).humanize

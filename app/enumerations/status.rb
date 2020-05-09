@@ -1,4 +1,4 @@
-class IncidentStatus < EnumerateIt::Base
+class Status < EnumerateIt::Base
   associate_values(
     :open,
     :solved,

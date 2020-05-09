@@ -1,13 +1,16 @@
 module IncidentHelper
 
-  def incident_priority(incident)
-    priority_level_value = I18n.t("enumerations.enumerations/priority_level.#{incident.priority_level}")
-    label_priority_level = return_priority_level_label(incident)
-    "<span class='label label-#{label_priority_level}'>#{priority_level_value}</span>"
+  def value_for(incident, attribute)
+    attribute_value = incident.send(attribute)
+    return_label_method = "return_#{attribute}_label"
+
+    label = send(return_label_method, attribute_value)
+    value = I18n.t("enumerations.#{attribute}.#{incident.send(attribute)}")
+    "<span class='label label-#{label}'>#{value}</span>"
   end
 
-  def return_priority_level_label(incident)
-    case incident.priority_level
+  def return_priority_level_label(attribute_value)
+    case attribute_value
       when PriorityLevel::LOW
         'info'
       when PriorityLevel::MEDIUM
@@ -17,25 +20,19 @@ module IncidentHelper
       end
   end
 
-  def incident_status(incident)
-    status_value = I18n.t("enumerations.enumerations/incident_status.#{incident.status}")
-    label_status = return_status_label(incident)
-    "<span class='label label-#{label_status}'>#{status_value}</span>"
-  end
-
-  def return_status_label(incident)
-    case incident.status
-      when IncidentStatus::SOLVED
+  def return_status_label(attribute_value)
+    case attribute_value
+      when Status::SOLVED
         'success'
-      when IncidentStatus::OPEN
+      when Status::OPEN
         'warning'
-      when IncidentStatus::PENDING
+      when Status::PENDING
         'info'
-      when IncidentStatus::CLOSED
+      when Status::CLOSED
         'default'
-      when IncidentStatus::REOPENED
+      when Status::REOPENED
         'danger'
-      when IncidentStatus::ANALYSING
+      when Status::ANALYSING
         'primary'
       end
   end

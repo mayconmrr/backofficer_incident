@@ -2,11 +2,11 @@
   <tr style="background: <%= cycle('white', 'ice') %>">
     <td><%= incident.id %></td>
     <td><%= incident.title.truncate(35) %></td>
-    <td><%= raw incident_priority(incident) %></td>
+    <td><%= raw value_for(incident, 'priority_level') %></td>
     <td><%= incident.backofficer.name %></td>
     <td><%= brazil_date(incident.created_at) %></td>
     <td><%= brazil_date(incident.updated_at) %></td>
-    <td><%= raw incident_status(incident) %></td>
+    <td><%= raw value_for(incident, 'status') %></td>
     <td><%= responsible_analyst(incident) %> </td>
     <td><%= link_to 'Detalhes', incident, class: "btn btn-primary" %></td>
 

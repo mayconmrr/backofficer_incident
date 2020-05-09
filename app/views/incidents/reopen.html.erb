@@ -52,7 +52,7 @@
           <div class="centered">
             <h4>Análise</h4>
             <!-- solution -->
-            <% if @incident.status == IncidentStatus::PENDING%>
+            <% if @incident.status == Status::PENDING%>
               <%= @incident.pending_description %>
             <% else %>
               <%= @incident.solution_description %>
@@ -83,7 +83,7 @@
             </div>
           </div>
 
-          <%= f.hidden_field :status, value: IncidentStatus::REOPENED %>
+          <%= f.hidden_field :status, value: Status::REOPENED %>
           <%= f.hidden_field :reopened_by, value: current_backofficer %>
           <%= f.hidden_field :incident_reopened, value: true %>
 

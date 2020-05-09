@@ -1,6 +1,6 @@
 pt-BR:
   enumerations:
-    enumerations/incident_entity:
+    incident_entity:
       contract: Contrato
       customer: Cliente
       backofficer: Backofficer
@@ -11,29 +11,27 @@ pt-BR:
       trips: Trips
       supplier: Fornecedor
       other: Outro
-    enumerations/incident_plataform:
+    incident_plataform:
       app: Aplicativo
       web: Site
       both: Ambos
-    enumerations/incident_status:
+    status:
       open: Aberto
       solved: Resolvido
       reopened: Reaberto
       analysing: Em Análise
       pending: Pendente
       closed: Encerrado
-    enumerations/pending_reason:
+    pending_reason:
       supplier_block: Bloqueio por Fornecedor
       information_missing: Falta de Informação
-    enumerations/priority_level:
+    priority_level:
       low: Baixo
       medium: Médio
       high: Alto
-    enumerations/problem_kind:
+    problem_kind:
       bug_system: Bug de Sistema
       user_request: Funcionalidade Inexistente
       miseu: Mau Uso do Sistema
       not_specified: Não Especificado
       backofficer_mistake: Aberto Indevidamente
-
-

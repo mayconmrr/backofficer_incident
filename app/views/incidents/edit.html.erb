@@ -3,7 +3,7 @@
     <div class="panel-heading"><h3>Atualizar dados do Requisição</h3></div>
   </div>
   <%= render 'form', incident: @incident %>
-  <%= link_to 'Lista de Requisições de Urgência', incidents_path, class: "btn btn-primary" %>
+  <%= link_to 'Lista de Requisições de Urgência', incidents_path, class: 'btn btn-primary' %>
 <% else %>
   <%= render 'solve', incident: @incident %>
 <% end %>

@@ -6,7 +6,6 @@ gem 'rails', '~> 6.0'
 
 gem 'puma'
 gem 'sass-rails'
-gem 'better_errors'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'turbolinks'

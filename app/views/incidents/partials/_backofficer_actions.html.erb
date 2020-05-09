@@ -1,11 +1,11 @@
-<% if incident.status == IncidentStatus::OPEN || incident.status == IncidentStatus::REOPENED %>
+<% if incident.status == Status::OPEN || incident.status == Status::REOPENED %>
   <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: 'btn btn-primary' %></td>
-<% elsif incident.status == IncidentStatus::SOLVED %>
+<% elsif incident.status == Status::SOLVED %>
   <td><%= link_to 'Reabrir Requisição', reopen_path(id: incident.id), class: 'btn btn-danger' %></td>
-<% elsif incident.status == IncidentStatus::CLOSED %>
+<% elsif incident.status == Status::CLOSED %>
   <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: 'btn btn-primary disabled' %></td>
-<% elsif incident.status == IncidentStatus::ANALYSING %>
+<% elsif incident.status == Status::ANALYSING %>
   <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: 'btn btn-primary disabled' %></td>
-<% elsif incident.status == IncidentStatus::PENDING %>
+<% elsif incident.status == Status::PENDING %>
   <td><%= link_to 'Editar Dados', edit_incident_path(incident), class: 'btn btn-primary' %></td>
 <% end %>
