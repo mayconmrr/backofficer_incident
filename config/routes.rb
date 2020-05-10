@@ -1,20 +1,32 @@
 Rails.application.routes.draw do
+  root 'incidents#index'
+
   devise_for :analysts, controllers: { confirmations: 'confirmations' }
   devise_for :backofficers, controllers: { confirmations: 'confirmations' }
 
-  resources :incidents do
-    patch :analyse
-    patch :solution
-    patch :capture
-    patch :pending
-    patch :reopen
+  resources :incidents, shallow: true do
+    member do
+      patch 'analyse'
+      patch 'solution'
+      patch 'capture'
+      patch 'pending'
+      patch 'reopen'
+      get 'solve'
+      get 'pending'
+      get 'reopen'
+    end
+
+    collection do
+      get 'search'
+      get 'my_incidents'
+    end
   end
 
-  get 'my_incidents', to: 'incidents#my_incidents'
-  get 'solve', to: 'incidents#solve'
-  get 'pending', to: 'incidents#pending'
-  get 'search', to: 'incidents#search'
-  get 'reopen', to: 'incidents#reopen'
+  # get 'my_incidents', to: 'incidents#my_incidents'
+  # get 'solve', to: 'incidents#solve'
+  # get 'pending', to: 'incidents#pending'
+  # get 'search', to: 'incidents#search'
+  # get 'reopen', to: 'incidents#reopen'
 
-  root 'incidents#index'
+
 end

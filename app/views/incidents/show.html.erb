@@ -82,7 +82,7 @@
           <td><%= @incident.title %></td>
           <td><%= @incident.user_email %></td>
           <td><%= @incident.contract_id %></td>
-          <td><%= @incident.user_cpf %></td>
+          <td><%= @incident.user_email %></td>
           <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
             <td><%= @incident.problem_kind %></td>
             <td><%= @incident.entity %></td>
@@ -100,13 +100,13 @@
     <% if @incident.status == Status::OPEN || @incident.status == Status::PENDING %>
       <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
     <% elsif @incident.status == Status::SOLVED %>
-      <%= link_to 'Reabrir Requisição', reopen_path(id: @incident.id), class: "btn btn-danger" %>
+      <%= link_to 'Reabrir Requisição', reopen_incident_path(incident), class: "btn btn-danger" %>
     <% elsif @incident.status == Status::ANALYSING %>
       <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default disabled", :disabled => true %>
     <% elsif @incident.status == Status::REOPENED %>
       <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
       <%= "  |  " %>
-      <%= link_to 'Editar motivo da Reabertura', reopen_path(id: @incident.id), class: "btn btn-danger" %>
+      <%= link_to 'Editar motivo da Reabertura', reopen_incident_path(incident), class: "btn btn-danger" %>
     <% end %>
 <% elsif analyst_signed_in? %>
     <% if @incident.status == Status::OPEN %>

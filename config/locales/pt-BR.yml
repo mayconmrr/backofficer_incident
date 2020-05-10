@@ -734,7 +734,6 @@ pt-BR:
         solution_description: Descrição da Solução
         reopened_description: Descrição da Reabertura
         user_email: Email do Usuário
-        user_cpf: CPF do Usuário
         contract_id: ID do Contrato
         title: Título
         status: Status

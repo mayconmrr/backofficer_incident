@@ -3,7 +3,7 @@
     <span class='logo'><%= link_to(image_tag('logo.png'), root_path) %></span>
     <ul class='nav navbar-nav pull-right'>
       <% if signed_in? %>
-        <li class='nav-item'><%= link_to 'Minhas Requisições', my_incidents_path %></li>
+        <li class='nav-item'><%= link_to 'Minhas Requisições', my_incidents_incidents_path %></li>
         <li class='nav-item'><%= link_to 'Meus Dados', edit_registration_path(check_user) %></li>
         <li class='nav-item'><%= link_to 'Sair', destroy_session_path(check_user), method: 'delete' %></li>
       <% else %>

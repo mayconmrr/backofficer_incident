@@ -45,18 +45,16 @@ class IncidentsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @incident.update(incident_params)
-        if incident_params[:status].nil? || incident_params[:status] == Status::PENDING
-          redirect_to @incident, notice: 'Requisição de urgência atualizada com sucesso.'
-        elsif incident_params[:status] == Status::REOPENED
-          redirect_to @incident, notice: 'Requisição de urgência reaberta.'
-        elsif incident_params[:status] == Status::SOLVED
-          redirect_to @incident, notice: 'Requisição de urgência resolvida.'
-        end
-      else
-        render :new
+    if @incident.update(incident_params)
+      if incident_params[:status].nil? || incident_params[:status] == Status::PENDING
+        redirect_to @incident, notice: 'Requisição de urgência atualizada com sucesso.'
+      elsif incident_params[:status] == Status::REOPENED
+        redirect_to @incident, notice: 'Requisição de urgência reaberta.'
+      elsif incident_params[:status] == Status::SOLVED
+        redirect_to @incident, notice: 'Requisição de urgência resolvida.'
       end
+    else
+      render :new
     end
   end
 
@@ -85,7 +83,7 @@ class IncidentsController < ApplicationController
     params.require(:incident).permit(:problem_kind, :priority_level, :analyst_id,
     :problem_description, :user_email, :title, :status, :solution_description,
     :analysis_time, :solution_time, :entity, :evidence_screen, :pending_description,
-    :user_cpf, :contract_id, :plataform_kind,:reopening_description, :reopened_by,
+    :contract_id, :plataform_kind,:reopening_description, :reopened_by,
     :incident_reopened, :pending_reason)
   end
 
