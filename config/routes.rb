@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :analysts
+  devise_for :analysts, controllers: { confirmations: 'confirmations' }
   devise_for :backofficers, controllers: { confirmations: 'confirmations' }
 
   resources :incidents do
