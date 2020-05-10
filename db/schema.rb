@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_03_184829) do
+ActiveRecord::Schema.define(version: 2020_05_10_013850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2018_06_03_184829) do
     t.string "solution_description"
     t.string "reopened_description"
     t.string "user_email"
-    t.string "user_cpf"
     t.string "contract_id"
     t.string "title"
     t.string "status", default: "open"
