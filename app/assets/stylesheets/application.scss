@@ -76,6 +76,10 @@ td {
   padding: 4px 15px !important;
 }
 
+[data-notify="container"] {
+  text-align: center;
+}
+
 /** Bootstrap Notify **/
 [data-notify="progressbar"] {
   margin-bottom:  0px;
