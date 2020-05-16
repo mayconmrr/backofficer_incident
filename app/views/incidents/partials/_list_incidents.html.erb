@@ -1,4 +1,4 @@
-<% incidents.each do |incident| %>
+<% @incidents.load.each do |incident| %>
   <tr style="background: <%= cycle('white', 'ice') %>">
     <td><%= incident.id %></td>
     <td><%= incident.title.truncate(35) %></td>

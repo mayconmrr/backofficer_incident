@@ -19,24 +19,27 @@ class IncidentsController < ApplicationController
 
   def my_incidents
     incidents = check_user.incidents
-    if check_user.class.name == 'Backofficer'
-      incidents = incidents.includes(:analyst)
-    else
-      incidents =incidents.includes(:backofficer)
-    end
+    incidents =
+      if check_user.class.name == 'Backofficer'
+        incidents.includes(:analyst)
+      else
+        incidents.includes(:backofficer)
+      end
 
-    @incidents = check_user.incidents.paginate(page: params[:page], per_page: 10)
+    @incidents = incidents.paginate(page: params[:page], per_page: 10)
     render 'index'
   end
 
   def search
-    @incidents = Incident.search(params[:q]).paginate(page: params[:page], per_page: 10)
+    @incidents = Incident.search(params[:q])
+                          .includes(:backofficer, :analyst)
+                          .paginate(page: params[:page], per_page: 10)
     render 'index'
   end
 
   def index
-    incidents = Incident.includes(:backofficer).includes(:analyst).all
-    @incidents = incidents.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
+    @incidents = Incident.includes(:backofficer, :analyst).all
+                          .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   def new
