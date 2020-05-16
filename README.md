@@ -8,8 +8,12 @@ As `analyst`, you can solve the incident or ask for more information about it.
 Incidents List
 ![](app/assets/images/readme/incident_list.png)
 
+- - - - -
+
 Analyst page
 ![](app/assets/images/readme/analyst_page.png)
+
+- - - - -
 
 Open new incident
 ![](app/assets/images/readme/new_incident.png)
@@ -27,5 +31,5 @@ Run in your console:
 bin/setup
 ```
 ```
-rails db:create && rails db:migrate && rails db:seed
+rails db:drop db:create db:migrate db:seed
 ```
