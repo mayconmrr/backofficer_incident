@@ -18,6 +18,13 @@ class IncidentsController < ApplicationController
   def reopen; end
 
   def my_incidents
+    incidents = check_user.incidents
+    if check_user.class.name == 'Backofficer'
+      incidents = incidents.includes(:analyst)
+    else
+      incidents =incidents.includes(:backofficer)
+    end
+
     @incidents = check_user.incidents.paginate(page: params[:page], per_page: 10)
     render 'index'
   end
@@ -28,7 +35,8 @@ class IncidentsController < ApplicationController
   end
 
   def index
-    @incidents = Incident.all.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
+    incidents = Incident.includes(:backofficer).includes(:analyst).all
+    @incidents = incidents.paginate(page: params[:page], per_page: 10).order(created_at: :desc)
   end
 
   def new
