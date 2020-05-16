@@ -42,12 +42,16 @@ module IncidentHelper
   end
 
   def current_user_actions
-    partial = +"incidents/partials/#{action_name}/"
+    partial = +"incidents/partials/#{current_action_name}/"
     partial <<
       if backofficer_signed_in?
         'backofficer_actions'
       elsif analyst_signed_in?
         'analyst_actions'
       end
+  end
+
+  def current_action_name
+    action_name == 'my_incidents' ? 'index' : action_name
   end
 end
