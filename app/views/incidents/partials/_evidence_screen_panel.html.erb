@@ -1,0 +1,31 @@
+<div class="panel-body">
+  <div class="col-md-4">
+    <div class="centered">
+      <h4>Descrição do Problema</h4>
+      <%= @incident.problem_description %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="centered">
+      <h4>Tela de Evidência</h4>
+      <% if @incident.evidence_screen.file? %>
+        <%= link_to @incident.evidence_screen.url(:large) do %>
+          <%= image_tag @incident.evidence_screen.url(:medium) %>
+        <% end %>
+      <% else %>
+        <%= image_tag @incident.evidence_screen.url(:medium) %>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="centered">
+      <h4>Análise</h4>
+      <!-- solution -->
+      <% if @incident.status == Status::PENDING%>
+        <%= @incident.pending_description %>
+      <% else %>
+        <%= @incident.solution_description %>
+      <% end %>
+    </div>
+  </div>
+</div>

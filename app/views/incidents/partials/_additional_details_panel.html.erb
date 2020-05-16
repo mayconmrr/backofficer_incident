@@ -1,0 +1,32 @@
+<div class="panel-body">
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>Resumo do Problema</th>
+      <th>Email do Usuário</th>
+      <th>Número do Contrato</th>
+      <th>CPF do Usuário</th>
+      <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
+        <th>Escopo do Problema</th>
+        <th>Tipo do Erro</th>
+      <% elsif @incident.status == Status::REOPENED %>
+        <th><span class='label label-danger'>Motivo da Reabertura</span></th>
+    <% end %>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @incident.title %></td>
+        <td><%= @incident.user_email %></td>
+        <td><%= @incident.contract_id %></td>
+        <td><%= @incident.user_email %></td>
+        <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
+          <td><%= @incident.problem_kind %></td>
+          <td><%= @incident.entity %></td>
+        <% elsif @incident.status == Status::REOPENED %>
+          <td><%= @incident.reopening_description %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

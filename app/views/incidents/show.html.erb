@@ -1,98 +1,10 @@
 <div class="panel panel-primary">
   <div class="panel-heading">Detalhes do Requisição</div>
-  <div class="panel-body">
-    <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nível de Prioridade</th>
-          <th>Reportador Por</th>
-          <th>Aberto Em</th>
-          <th>Analista</th>
-          <th>Última Atualização</th>
-          <th>Status da Requisição</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @incident.id %></td>
-          <td><%= raw value_for(@incident, 'priority_level') %></td>
-          <td><%= @incident.backofficer.name %></td>
-          <td><%= brazil_date(@incident.created_at) %></td>
-          <td><%= responsible_analyst(@incident) %> </td>
-          <td><%= brazil_date(@incident.updated_at) %></td>
-          <td><%= raw value_for(@incident, 'status') %></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
+    <%= render partial: 'incidents/partials/info_panel' %>
   <hr>
-  <div class="panel-body">
-    <div class="col-md-4">
-      <div class="centered">
-        <h4>Descrição do Problema</h4>
-        <%= @incident.problem_description %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="centered">
-        <h4>Tela de Evidência</h4>
-        <% if @incident.evidence_screen.file? %>
-          <%= link_to @incident.evidence_screen.url(:large) do %>
-            <%= image_tag @incident.evidence_screen.url(:medium) %>
-          <% end %>
-        <% else %>
-          <%= image_tag @incident.evidence_screen.url(:medium) %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="centered">
-        <h4>Análise</h4>
-        <!-- solution -->
-        <% if @incident.status == Status::PENDING%>
-          <%= @incident.pending_description %>
-        <% else %>
-          <%= @incident.solution_description %>
-        <% end %>
-      </div>
-    </div>
-  </div>
+    <%= render partial: 'incidents/partials/evidence_screen_panel' %>
   <hr>
-
-  <div class="panel-body">
-    <table class="table table-condensed">
-      <thead>
-      <tr>
-        <th>Resumo do Problema</th>
-        <th>Email do Usuário</th>
-        <th>Número do Contrato</th>
-        <th>CPF do Usuário</th>
-        <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
-          <th>Escopo do Problema</th>
-          <th>Tipo do Erro</th>
-        <% elsif @incident.status == Status::REOPENED %>
-          <th><span class='label label-danger'>Motivo da Reabertura</span></th>
-      <% end %>
-      </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><%= @incident.title %></td>
-          <td><%= @incident.user_email %></td>
-          <td><%= @incident.contract_id %></td>
-          <td><%= @incident.user_email %></td>
-          <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
-            <td><%= @incident.problem_kind %></td>
-            <td><%= @incident.entity %></td>
-          <% elsif @incident.status == Status::REOPENED %>
-            <td><%= @incident.reopening_description %></td>
-          <% end %>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <%= render partial: 'incidents/partials/additional_details_panel' %>
 </div>
 
 <div class="text-center">
@@ -135,6 +47,3 @@
     <% end %>
   <% end %>
 </div>
-<br />
-<br />
-<%= link_to 'Lista de Requisições', incidents_path, class: "btn btn-primary" %>
