@@ -52,7 +52,7 @@ module IncidentHelper
   end
 
   def current_action_name
-    action_name == 'my_incidents' ? 'index' : action_name
+    action_name == 'my_incidents' || 'search' ? 'index' : action_name
   end
 
   def disable_solve_button?(incident)

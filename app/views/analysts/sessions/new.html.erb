@@ -1,7 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading"><h3>Analista</h3></div>
 </div>
-</br>
 
 <div class="container">
   <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -14,18 +13,17 @@
       <div class="panel-body">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-group">
-            <%= f.label :email, class:"col-md-3 control-label" %><br />
+            <%= f.label :email, class: 'col-md-3 control-label' %>
             <%= f.email_field :email, autofocus: true, class: "form-control" %>
           </div>
 
           <div class="form-group">
-            <%= f.label :password, class:"col-md-3 control-label" %><br />
+            <%= f.label :password, class: 'col-md-3 control-label' %>
             <%= f.password_field :password, autocomplete: "off", class: "form-control"  %>
           </div>
 
           <% if devise_mapping.rememberable? -%>
             <div class="checkbox">
-              <br>
               <label>
                 <%= f.check_box :remember_me %> Lembra senha
               </label>
@@ -41,18 +39,17 @@
         <% end %>
         <div class="centered">
           <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-            <%= link_to "Esqueci minha senha", new_password_path(resource_name) %><br />
+            <%= link_to "Esqueci minha senha", new_password_path(resource_name) %>
           <% end -%>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <div class="centered">
   <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-    <%= link_to "Criar conta", new_registration_path(resource_name), class: "btn btn-success" %><br />
-  <% end -%>
-  <br />
-  <%= link_to "Backofficer", new_backofficer_session_path, class: "btn btn-primary" %><br />
-
+    <%= link_to "Criar conta", new_registration_path(resource_name), class: "btn btn-success" %>
+  <% end %>
+  <%= link_to "Backofficer", new_backofficer_session_path, class: "btn btn-primary" %>
 </div>
