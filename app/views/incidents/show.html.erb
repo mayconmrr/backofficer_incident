@@ -1,49 +1,13 @@
 <div class="panel panel-primary">
   <div class="panel-heading">Detalhes do Requisição</div>
-    <%= render partial: 'incidents/partials/info_panel' %>
+    <%= render partial: 'incidents/partials/show/info_panel' %>
   <hr>
-    <%= render partial: 'incidents/partials/evidence_screen_panel' %>
+    <%= render partial: 'incidents/partials/show/evidence_screen_panel' %>
   <hr>
-  <%= render partial: 'incidents/partials/additional_details_panel' %>
+  <%= render partial: 'incidents/partials/show/additional_details_panel' %>
 </div>
 
+
 <div class="text-center">
-  <% if backofficer_signed_in? %>
-    <% if @incident.status == Status::OPEN || @incident.status == Status::PENDING %>
-      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
-    <% elsif @incident.status == Status::SOLVED %>
-      <%= link_to 'Reabrir Requisição', reopen_incident_path(incident), class: "btn btn-danger" %>
-    <% elsif @incident.status == Status::ANALYSING %>
-      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default disabled", :disabled => true %>
-    <% elsif @incident.status == Status::REOPENED %>
-      <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
-      <%= "  |  " %>
-      <%= link_to 'Editar motivo da Reabertura', reopen_incident_path(incident), class: "btn btn-danger" %>
-    <% end %>
-<% elsif analyst_signed_in? %>
-    <% if @incident.status == Status::OPEN %>
-      <%= link_to 'Iniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger" %>
-      <%= "  |  " %>
-      <%= link_to 'Resolver Requisição', solve_path(id: @incident.id), class: "btn btn-success disabled", :disabled => true %>
-    <% elsif @incident.status == Status::REOPENED %>
-      <%= link_to 'Reiniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger" %>
-    <% elsif @incident.status == Status::ANALYSING && @incident.analyst_id == current_analyst.id %>
-      <%= link_to 'Iniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
-      <%= "  |  " %>
-      <%= link_to 'Resolver Requisição', solve_path(id: @incident.id), method: :get, class: "btn btn-success" %>
-      <%= "  |  " %>
-      <%= link_to 'Pendente', pending_path(id: @incident.id), method: :get, class: "btn btn-primary" %>
-    <% elsif (@incident.status == Status::ANALYSING || @incident.status == Status::PENDING) && @incident.analyst_id != current_analyst.id %>
-      <%= link_to 'Iniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
-      <%= "  |  " %>
-      <%= link_to 'Pegar Requisição', incident_capture_path(@incident.id), method: :patch, data: { confirm: 'Tem certeza que deseja capturar essa requisição?' }, class: "btn btn-success" %>
-    <% elsif (@incident.status == Status::PENDING || @incident.status == Status::REOPENED) && @incident.analyst_id == current_analyst.id %>
-      <td><%= link_to 'Reiniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger" %></td>
-    <% end %>
-    <% if @incident.status == Status::CLOSED || @incident.status == Status::SOLVED %>
-      <%= link_to 'Iniciar Análise', incident_path(@incident.id), method: :patch, class: "btn btn-danger disabled", :disabled => true %>
-      <%= "  |  " %>
-      <%= link_to 'Resolver Requisição', edit_incident_path(@incident), class: "btn btn-success disabled", :disabled => true %>
-    <% end %>
-  <% end %>
+  <%= render partial: current_user_actions, locals: { incident: @incident } %>
 </div>

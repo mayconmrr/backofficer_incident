@@ -9,7 +9,7 @@
   <br />
 <% end %>
 
-<%= render 'search' %>
+<%= render partial: 'incidents/partials/search' %>
 
 <div class='basic-grey'>
   <div class='centered' id='list_incidents'>
@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: 'incidents/partials/list_incidents' %>
+        <%= render partial: 'incidents/partials/index/list_incidents' %>
       </tbody>
     </table>
   </div>

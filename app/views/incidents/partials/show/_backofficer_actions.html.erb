@@ -1,0 +1,11 @@
+<% if @incident.status == Status::OPEN || @incident.status == Status::PENDING %>
+  <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
+<% elsif @incident.status == Status::SOLVED %>
+  <%= link_to 'Reabrir Requisição', reopen_incident_path(incident), class: "btn btn-danger" %>
+<% elsif @incident.status == Status::ANALYSING %>
+  <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default disabled", :disabled => true %>
+<% elsif @incident.status == Status::REOPENED %>
+  <%= link_to 'Editar dados da Requisição', edit_incident_path(@incident), class: "btn btn-default" %>
+  <%= "  |  " %>
+  <%= link_to 'Editar motivo da Reabertura', reopen_incident_path(incident), class: "btn btn-danger" %>
+<% end %>
