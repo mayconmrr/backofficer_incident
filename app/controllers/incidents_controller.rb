@@ -1,20 +1,23 @@
-class IncidentsController < ApplicationController
-  before_action :set_incident, only: %i[update edit destroy show analyse
-                                        capture reopen solve solution
-                                        pending check_to_update]
+# frozen_string_literal: true
 
+class IncidentsController < ApplicationController
+  before_action :set_incident, only: %i[update edit show analyse capture reopen solve pending check_to_update]
   before_action :authenticate_user
   before_action :authenticate_backofficer!, only: [:create]
-  before_action :authenticate_analyst!, only: %i[analyse solve capture solution]
+  before_action :authenticate_analyst!, only: %i[analyse solve capture]
   before_action :check_to_reopen, only: [:reopen]
   before_action :check_to_solve, only: [:solve]
   before_action :check_to_update, only: [:update]
   include UserHelper
 
   def show; end
+
   def edit; end
+
   def solve; end
+
   def pending; end
+
   def reopen; end
 
   def my_incidents
@@ -32,14 +35,14 @@ class IncidentsController < ApplicationController
 
   def search
     @incidents = Incident.search(params[:q])
-                          .includes(:backofficer, :analyst)
-                          .paginate(page: params[:page], per_page: 10)
+                         .includes(:backofficer, :analyst)
+                         .paginate(page: params[:page], per_page: 10)
     render 'index'
   end
 
   def index
     @incidents = Incident.includes(:backofficer, :analyst).all
-                          .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+                         .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -83,19 +86,19 @@ class IncidentsController < ApplicationController
   private
 
   def set_incident
-    if params[:id].present?
-      @incident = Incident.find(params[:id])
-    else
-      @incident = Incident.find(params[:incident_id])
-    end
+    @incident = if params[:id].present?
+                  Incident.find(params[:id])
+                else
+                  Incident.find(params[:incident_id])
+                end
   end
 
   def incident_params
     params.require(:incident).permit(:problem_kind, :priority_level, :analyst_id,
-    :problem_description, :user_email, :title, :status, :solution_description,
-    :analysis_time, :solution_time, :entity, :evidence_screen, :pending_description,
-    :contract_id, :plataform_kind,:reopening_description, :reopened_by,
-    :incident_reopened, :pending_reason)
+                                     :problem_description, :user_email, :title, :status, :solution_description,
+                                     :analysis_time, :solution_time, :entity, :evidence_screen, :pending_description,
+                                     :contract_id, :plataform_kind, :reopening_description, :reopened_by,
+                                     :incident_reopened, :pending_reason)
   end
 
   def authenticate_user
@@ -121,7 +124,7 @@ class IncidentsController < ApplicationController
     redirect_to @incident unless
     (@incident.status == Status::SOLVED ||
         @incident.status == Status::REOPENED) &&
-        authenticate_backofficer!
+    authenticate_backofficer!
   end
 
   def check_to_update
@@ -129,11 +132,11 @@ class IncidentsController < ApplicationController
       flash[:alert] = 'Requisição não foi rebaberta. Motivo da reabertura deve ser preenchido.'
       redirect_to @incident
     elsif incident_params[:status] == Status::SOLVED &&
-        (incident_params[:solution_description].blank? || incident_params[:entity].blank?)
+          (incident_params[:solution_description].blank? || incident_params[:entity].blank?)
       flash[:alert] = 'Requisição não foi resolvida. Análise e contexto devem ser preenchidos.'
       redirect_to solve_incident_path(id: @incident.id)
     elsif incident_params[:status] == Status::PENDING &&
-        (incident_params[:pending_reason].blank? || incident_params[:pending_description].blank?)
+          (incident_params[:pending_reason].blank? || incident_params[:pending_description].blank?)
       flash[:alert] = 'Requisição não foi atualizada. Tipo e motivo do bloqueio devem ser preenchidos.'
       redirect_to pending_path(id: @incident.id)
     end

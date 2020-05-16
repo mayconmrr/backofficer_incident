@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -13,10 +15,12 @@ module BackofficerIncident
     config.i18n.default_locale = :'pt-BR'
     config.time_zone = 'America/Sao_Paulo'
 
-    config.autoload_paths += %W(#{config.root}/app/)
+    config.autoload_paths += %W[#{config.root}/app/]
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    Rails.logger = Logger.new(STDOUT)
+    Rails.logger.level = Logger::DEBUG
   end
 end

@@ -1,53 +1,57 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 ruby '2.7.0'
 
 git_source(:github) { |r| "https://github.com/#{r}.git" }
 gem 'rails', '~> 6.0'
 
-gem 'puma'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
-gem 'turbolinks'
-gem 'jbuilder'
+gem 'amazing_print'
+gem 'aws-sdk'
 gem 'bcrypt'
+gem 'bootsnap'
+gem 'bootstrap-sass'
+gem 'bootstrap-will_paginate'
+gem 'coffee-rails'
 gem 'devise'
 gem 'devise-i18n'
-gem 'rails-i18n'
-gem 'pry'
-gem 'pry-rails'
-gem 'bootstrap-sass'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
+gem 'enumerate_it'
+gem 'figaro'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
+gem 'lerolero_generator'
 gem 'paperclip'
 gem 'paperclip-i18n'
-gem 'time_difference'
-gem 'enumerate_it'
-gem 'amazing_print'
 gem 'pg'
-gem 'lerolero_generator'
-gem 'bootsnap'
-gem 'figaro'
-gem 'aws-sdk'
+gem 'pry'
+gem 'pry-rails'
+gem 'puma'
+gem 'rails-i18n'
+gem 'sass-rails'
+gem 'time_difference'
+gem 'turbolinks'
+gem 'uglifier'
+gem 'will_paginate'
 
 source 'https://rails-assets.org' do
+  gem 'rails-assets-animate-css'
   gem 'rails-assets-bootstrap', '3.3.7'
   gem 'rails-assets-bootstrap.growl'
-  gem 'rails-assets-animate-css'
 end
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
-  gem 'web-console'
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'web-console'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

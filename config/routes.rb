@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'incidents#index'
 
@@ -27,6 +29,4 @@ Rails.application.routes.draw do
   # get 'pending', to: 'incidents#pending'
   # get 'search', to: 'incidents#search'
   # get 'reopen', to: 'incidents#reopen'
-
-
 end

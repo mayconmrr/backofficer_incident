@@ -1,5 +1,6 @@
-module IncidentHelper
+# frozen_string_literal: true
 
+module IncidentHelper
   def value_for(incident, attribute)
     attribute_value = incident.send(attribute)
     return_label_method = "return_#{attribute}_label"
@@ -11,29 +12,29 @@ module IncidentHelper
 
   def return_priority_level_label(attribute_value)
     case attribute_value
-      when PriorityLevel::LOW
-        'info'
-      when PriorityLevel::MEDIUM
-        'warning'
-      when PriorityLevel::HIGH
-        'danger'
+    when PriorityLevel::LOW
+      'info'
+    when PriorityLevel::MEDIUM
+      'warning'
+    when PriorityLevel::HIGH
+      'danger'
       end
   end
 
   def return_status_label(attribute_value)
     case attribute_value
-      when Status::SOLVED
-        'success'
-      when Status::OPEN
-        'warning'
-      when Status::PENDING
-        'info'
-      when Status::CLOSED
-        'default'
-      when Status::REOPENED
-        'danger'
-      when Status::ANALYSING
-        'primary'
+    when Status::SOLVED
+      'success'
+    when Status::OPEN
+      'warning'
+    when Status::PENDING
+      'info'
+    when Status::CLOSED
+      'default'
+    when Status::REOPENED
+      'danger'
+    when Status::ANALYSING
+      'primary'
       end
   end
 
@@ -75,7 +76,7 @@ module IncidentHelper
     if incident.status == Status::OPEN
       link << link_to('Resolver Requisição', solve_incident_path(incident), class: 'btn btn-success disabled')
     elsif incident.status == Status::ANALYSING && incident.analyst_id == current_analyst.id
-      link <<  link_to('Resolver Requisição', solve_incident_path(incident), method: :get, class: 'btn btn-success')
+      link << link_to('Resolver Requisição', solve_incident_path(incident), method: :get, class: 'btn btn-success')
     elsif incident.status == Status::CLOSED || incident.status == Status::SOLVED
       link << link_to('Resolver Requisição', edit_incident_path(incident), class: 'btn btn-success disabled')
     end

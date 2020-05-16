@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class IncidentEntity < EnumerateIt::Base
   associate_values(
     :contract,

@@ -58,6 +58,7 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
     amazing_print (1.1.0)
+    ast (2.4.0)
     autoprefixer-rails (9.7.6)
       execjs
     aws-eventstream (1.1.0)
@@ -1005,6 +1006,7 @@ GEM
       activesupport (>= 4.2.0)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
+    jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jmespath (1.4.0)
@@ -1046,6 +1048,9 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     paperclip-i18n (4.3.0)
+    parallel (1.19.1)
+    parser (2.7.1.2)
+      ast (~> 2.4.0)
     pg (1.2.3)
     pry (0.13.1)
       coderay (~> 1.1)
@@ -1093,6 +1098,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
+    rainbow (3.0.0)
     rake (13.0.1)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
@@ -1100,6 +1106,20 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.4)
+    rubocop (0.82.0)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      rexml
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-rails (2.5.2)
+      activesupport
+      rack (>= 1.1)
+      rubocop (>= 0.72.0)
+    ruby-progressbar (1.10.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.3.0)
@@ -1135,6 +1155,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
+    unicode-display_width (1.7.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.2)
@@ -1181,6 +1202,8 @@ DEPENDENCIES
   rails-assets-bootstrap (= 3.3.7)!
   rails-assets-bootstrap.growl!
   rails-i18n
+  rubocop
+  rubocop-rails
   sass-rails
   spring
   spring-watcher-listen
@@ -1195,4 +1218,4 @@ RUBY VERSION
    ruby 2.7.0p0
 
 BUNDLED WITH
-   2.1.4
+   2.1.2

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 #====================== Analyst ======================#
-puts 'Creating Analyst...'
+Rails.logger.debug 'Creating Analyst...'
 
 analyst = Analyst.new(
   name: 'Analista Default',
@@ -11,10 +13,10 @@ analyst = Analyst.new(
 analyst.skip_confirmation!
 analyst.save
 
-puts 'Analyst created.'
+Rails.logger.debug 'Analyst created.'
 
 #==================== Backofficer ====================#
-puts 'Creating Backofficer...'
+Rails.logger.debug 'Creating Backofficer...'
 
 backofficer = Backofficer.new(
   name: 'Backofficer Default',
@@ -26,23 +28,22 @@ backofficer = Backofficer.new(
 backofficer.skip_confirmation!
 backofficer.save
 
-puts 'Backofficer created.'
+Rails.logger.debug 'Backofficer created.'
 
 #====================== Incident ======================#
 unless Rails.env.production?
-  puts 'Creating Fake Incidents...'
+  Rails.logger.debug 'Creating Fake Incidents...'
   25.times do
     incident = Incident.new(
       title: Faker::Name.name,
       priority_level: PriorityLevel.list.sample,
-      problem_description: Faker::Lorem.paragraph(sentence_count: [1,2,3].sample),
+      problem_description: Faker::Lorem.paragraph(sentence_count: [1, 2, 3].sample),
       plataform_kind: IncidentPlataform.list.sample,
       user_email: Faker::Internet.email,
-      user_cpf: rand(12),
       contract_id: rand(10..100),
       backofficer_id: 1
     )
     incident.save!
   end
-  puts 'Incidents created.'
+  Rails.logger.debug 'Incidents created.'
 end

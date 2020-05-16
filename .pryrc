@@ -1,2 +1,4 @@
-require "amazing_print"
+# frozen_string_literal: true
+
+require 'amazing_print'
 AmazingPrint.pry!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProblemKind < EnumerateIt::Base
   associate_values(
     :bug_system,

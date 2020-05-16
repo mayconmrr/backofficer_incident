@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class Analyst < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-          :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :incidents
+  has_many :incidents, dependent: :nullify
 
   COMPANY_DOMAINS = %w[company.com mycompany.com].freeze
   validates :email, presence: true, if: :domain_check
