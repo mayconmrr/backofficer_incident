@@ -3,7 +3,7 @@ class IncidentsController < ApplicationController
                                         capture reopen solve solution
                                         pending check_to_update]
 
-  before_action :authenticate_user, only: %i[my_incidents search index]
+  before_action :authenticate_user
   before_action :authenticate_backofficer!, only: [:create]
   before_action :authenticate_analyst!, only: %i[analyse solve capture solution]
   before_action :check_to_reopen, only: [:reopen]
@@ -131,7 +131,7 @@ class IncidentsController < ApplicationController
     elsif incident_params[:status] == Status::SOLVED &&
         (incident_params[:solution_description].blank? || incident_params[:entity].blank?)
       flash[:alert] = 'Requisição não foi resolvida. Análise e contexto devem ser preenchidos.'
-      redirect_to solve_path(id: @incident.id)
+      redirect_to solve_incident_path(id: @incident.id)
     elsif incident_params[:status] == Status::PENDING &&
         (incident_params[:pending_reason].blank? || incident_params[:pending_description].blank?)
       flash[:alert] = 'Requisição não foi atualizada. Tipo e motivo do bloqueio devem ser preenchidos.'

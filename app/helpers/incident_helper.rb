@@ -54,4 +54,37 @@ module IncidentHelper
   def current_action_name
     action_name == 'my_incidents' ? 'index' : action_name
   end
+
+  def disable_solve_button?(incident)
+    return true if incident.status == Status::CLOSED || incident.status == Status::SOLVED
+    return true if (incident.status == Status::ANALYSING || incident.status == Status::PENDING) && incident.analyst_id != current_analyst.id
+    return true if incident.status == Status::ANALYSING && incident.analyst_id == current_analyst.id
+
+    false
+  end
+
+  def solve_incident?(incident)
+    return true if incident.status == Status::OPEN
+    # <%= link_to 'Resolver Requisição', solve_incident_path(incident), class: 'btn btn-success', disabled: true %>
+
+    return true if incident.status == Status::ANALYSING && incident.analyst_id == current_analyst.id
+    # <%= link_to 'Resolver Requisição', solve_incident_path(incident), method: :get, class: 'btn btn-success' %>
+
+    return true if incident.status == Status::CLOSED || incident.status == Status::SOLVED
+    # <%= link_to 'Resolver Requisição', edit_incident_path(incident), class: 'btn btn-success', disabled: true %>
+
+    false
+  end
+
+  def link_to_solve_incident(incident)
+    link = []
+    if incident.status == Status::OPEN
+      link << link_to('Resolver Requisição', solve_incident_path(incident), class: 'btn btn-success', disabled: true)
+    elsif incident.status == Status::ANALYSING && incident.analyst_id == current_analyst.id
+      link <<  link_to('Resolver Requisição', solve_incident_path(incident), method: :get, class: 'btn btn-success')
+    elsif incident.status == Status::CLOSED || incident.status == Status::SOLVED
+      link << link_to('Resolver Requisição', edit_incident_path(incident), class: 'btn btn-success', disabled: true)
+    end
+    safe_join(link)
+  end
 end
