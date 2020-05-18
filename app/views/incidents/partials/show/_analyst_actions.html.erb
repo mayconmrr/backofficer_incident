@@ -3,7 +3,7 @@
 <% end %>
 
 <% if @incident.reopened_or_pending? %>
-  <%= link_to 'Reiniciar Análise', incident_path(@incident), method: :patch, class: 'btn btn-danger' %>
+  <%= link_to 'Reiniciar Análise', incident_analyse_path(@incident), method: :patch, class: 'btn btn-danger' %>
 <% elsif (@incident.analysing? || @incident.pending?) && @incident.analyst_id != current_analyst.id %>
   <%= '&mdash;'.html_safe %>
   <%= link_to 'Pegar Requisição', incident_capture_path(@incident), method: :patch, data: { confirm: 'Tem certeza que deseja capturar essa requisição?' }, class: 'btn btn-success' %>
