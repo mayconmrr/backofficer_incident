@@ -35,11 +35,12 @@ unless Rails.env.production?
   Rails.logger.debug 'Creating Fake Incidents...'
   25.times do
     incident = Incident.new(
-      title: Faker::Name.name,
+      title: Faker::Movie.quote,
       priority_level: PriorityLevel.list.sample,
       problem_description: Faker::Lorem.paragraph(sentence_count: [1, 2, 3].sample),
       plataform_kind: IncidentPlataform.list.sample,
       user_email: Faker::Internet.email,
+      user_name: Faker::Name.name,
       contract_id: rand(10..100),
       backofficer_id: 1
     )

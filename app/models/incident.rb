@@ -46,7 +46,7 @@ class Incident < ApplicationRecord
     closed? || solved?
   end
 
-  def being_analyzed_by?
+  def being_analyzed_by?(current_analyst)
     analysing? && analyst == current_analyst
   end
 

@@ -98,7 +98,7 @@ class IncidentsController < ApplicationController
                                      :problem_description, :user_email, :title, :status, :solution_description,
                                      :analysis_time, :solution_time, :entity, :evidence_screen, :pending_description,
                                      :contract_id, :plataform_kind, :reopening_description, :reopened_by,
-                                     :incident_reopened, :pending_reason)
+                                     :incident_reopened, :pending_reason, :user_name)
   end
 
   def authenticate_user

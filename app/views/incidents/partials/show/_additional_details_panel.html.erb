@@ -5,7 +5,7 @@
       <th>Resumo do Problema</th>
       <th>Email do Usuário</th>
       <th>Número do Contrato</th>
-      <th>CPF do Usuário</th>
+      <th>Nome do Usuário</th>
       <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
         <th>Escopo do Problema</th>
         <th>Tipo do Erro</th>
@@ -19,7 +19,7 @@
         <td><%= @incident.title %></td>
         <td><%= @incident.user_email %></td>
         <td><%= @incident.contract_id %></td>
-        <td><%= @incident.user_email %></td>
+        <td><%= @incident.user_name %></td>
         <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
           <td><%= @incident.problem_kind %></td>
           <td><%= @incident.entity %></td>
