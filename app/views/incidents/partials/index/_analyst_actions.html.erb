@@ -1,13 +1,13 @@
 <% if incident.status == Status::OPEN %>
-  <td><%= link_to 'Iniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger' %></td>
+  <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: 'btn btn-danger' %></td>
 <% elsif incident.status == Status::ANALYSING %>
-  <td><%= link_to 'Iniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
+  <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
 <% elsif incident.status == Status::PENDING && current_analyst == incident.analyst %>
   <td><%= link_to 'Reiniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger' %></td>
 <% elsif incident.status == Status::SOLVED %>
-  <td><%= link_to 'Iniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
+  <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
 <% elsif incident.status == Status::REOPENED %>
   <td><%= link_to 'Reiniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger' %></td>
 <% elsif incident.status == Status::CLOSED || (incident.status == Status::PENDING && current_analyst != incident.analyst) %>
-  <td><%= link_to 'Iniciar Análise', incident_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
+  <td><%= link_to 'Iniciar Análise', incident_analyse_path(incident.id), method: :patch, class: 'btn btn-danger disabled' %></td>
 <% end %>

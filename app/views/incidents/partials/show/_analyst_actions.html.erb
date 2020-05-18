@@ -1,4 +1,4 @@
-<%= link_to 'Iniciar Análise', analyse_incident_path(@incident), method: :patch, class: "btn btn-danger #{disable_solve_button?(@incident)}" %>
+<%= link_to 'Iniciar Análise', incident_analyse_path(@incident), method: :patch, class: "btn btn-danger #{disable_solve_button?(@incident)}" %>
 
 <% if @incident.status == Status::REOPENED %>
   <%= '&mdash;'.html_safe %>
@@ -15,7 +15,7 @@
 <% elsif solve_incident?(@incident) %>
   <%= '&mdash;'.html_safe %>
   <%= link_to_solve_incident(@incident) %>
-  <% if @incident.analyst_id == current_analyst.id %>
+  <% if @incident.analyst_id == current_analyst.id && !@incident.closed_or_solved? %>
     <%= '&mdash;'.html_safe %>
     <%= link_to 'Pendente', pending_incident_path(@incident), method: :get, class: 'btn btn-primary' %>
   <% end %>

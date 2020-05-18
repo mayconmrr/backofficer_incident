@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   devise_for :backofficers, controllers: { confirmations: 'confirmations' }
 
   resources :incidents, shallow: true do
+    patch 'analyse'
+    patch 'solution'
+    patch 'capture'
+    patch 'pending'
+    patch 'reopen'
+
     member do
-      patch 'analyse'
-      patch 'solution'
-      patch 'capture'
-      patch 'pending'
-      patch 'reopen'
       get 'solve'
       get 'pending'
       get 'reopen'
@@ -23,10 +24,4 @@ Rails.application.routes.draw do
       get 'my_incidents'
     end
   end
-
-  # get 'my_incidents', to: 'incidents#my_incidents'
-  # get 'solve', to: 'incidents#solve'
-  # get 'pending', to: 'incidents#pending'
-  # get 'search', to: 'incidents#search'
-  # get 'reopen', to: 'incidents#reopen'
 end

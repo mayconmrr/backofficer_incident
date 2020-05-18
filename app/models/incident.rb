@@ -58,10 +58,10 @@ class Incident < ApplicationRecord
 
   def solve_params
     self.solved_at = DateTime.now if solved?
-    self.analysis_time = calculate_analysis_time unless analysis_started_at.nil?
+    self.analysis_time = calculate_analysis_time if analysis_started_at.present? && solved?
   end
 
   def calculate_analysis_time
-    TimeDifference.between(solved_at.to_time(:utc), created_at.to_time(:utc)).humanize
+    TimeDifference.between(solved_at.to_time.utc, created_at.to_time.utc).humanize
   end
 end
