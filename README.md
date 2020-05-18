@@ -2,16 +2,16 @@
 Software to control internal company incidents.
 
 As `bacofficer`, is possible to set the urgency and to add information to a specific incident.
-
+```
 email: backofficer@company.com
-
 password: backofficer_pass
+```
 - - - - -
 As `analyst`, you can solve the incident or ask for more information about it.
-
-analyst@company.com
-
+```
+email: analyst@company.com
 password: analyst_pass
+```
 
 # Website Preview
 Incidents List
