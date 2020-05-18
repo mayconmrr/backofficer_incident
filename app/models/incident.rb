@@ -42,14 +42,26 @@ class Incident < ApplicationRecord
   has_enumeration_for :pending_reason, with: PendingReason,
                                        create_helpers: true, create_scopes: true
 
+  def closed_or_solved?
+    closed? || solved?
+  end
+
+  def being_analyzed_by?
+    analysing? && analyst == current_analyst
+  end
+
+  def analysing_or_pending?
+    analysing? || pending?
+  end
+
   private
 
   def solve_params
-    if status == Status::SOLVED
-      self.solved_at = DateTime.now
-      unless analysis_started_at.nil?
-        self.analysis_time = TimeDifference.between(solved_at.to_time, created_at.to_time).humanize
-      end
-    end
+    self.solved_at = DateTime.now if solved?
+    self.analysis_time = calculate_analysis_time unless analysis_started_at.nil?
+  end
+
+  def calculate_analysis_time
+    TimeDifference.between(solved_at.to_time(:utc), created_at.to_time(:utc)).humanize
   end
 end

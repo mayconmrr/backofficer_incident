@@ -18,7 +18,7 @@ module IncidentHelper
       'warning'
     when PriorityLevel::HIGH
       'danger'
-      end
+    end
   end
 
   def return_status_label(attribute_value)
@@ -35,7 +35,7 @@ module IncidentHelper
       'danger'
     when Status::ANALYSING
       'primary'
-      end
+    end
   end
 
   def responsible_analyst(incident)
@@ -53,32 +53,29 @@ module IncidentHelper
   end
 
   def current_action_name
-    action_name == ('my_incidents' || 'search') ? 'index' : action_name
+    return 'index' if action_name == ('my_incidents' || 'search')
+
+    action_name
   end
 
-  def disable_solve_button?
-    return 'disabled' if
-      (@incident.status == Status::CLOSED || @incident.status == Status::SOLVED) ||
-      (@incident.status == Status::ANALYSING && @incident.analyst_id == current_analyst.id) ||
-      ((@incident.status == Status::ANALYSING || @incident.status == Status::PENDING) && @incident.analyst_id != current_analyst.id)
+  def disable_solve_button?(incident)
+    return 'disabled' if incident.closed_or_solved? || incident.being_analyzed_by?(current_analyst) ||
+                         (incident.analysing_or_pending? && incident.analyst_id != current_analyst.id)
   end
 
-  def solve_incident?
-    return true if
-      @incident.status == Status::OPEN ||
-      (@incident.status == Status::CLOSED || @incident.status == Status::SOLVED) ||
-      (@incident.status == Status::ANALYSING && @incident.analyst_id == current_analyst.id)
+  def solve_incident?(incident)
+    incident.open? || incident.closed_or_solved? || incident.being_analyzed_by?(current_analyst)
   end
 
-  def link_to_solve_incident
+  def link_to_solve_incident(incident)
     link = []
 
-    if @incident.status == Status::OPEN
-      link << link_to('Resolver Requisição', solve_incident_path(@incident), class: 'btn btn-success disabled')
-    elsif @incident.status == Status::ANALYSING && @incident.analyst_id == current_analyst.id
-      link << link_to('Resolver Requisição', solve_incident_path(@incident), method: :get, class: 'btn btn-success')
-    elsif @incident.status == Status::CLOSED || @incident.status == Status::SOLVED
-      link << link_to('Resolver Requisição', edit_incident_path(@incident), class: 'btn btn-success disabled')
+    if incident.open?
+      link << link_to('Resolver Requisição', solve_incident_path(incident), class: 'btn btn-success disabled')
+    elsif incident.being_analyzed_by?(current_analyst)
+      link << link_to('Resolver Requisição', solve_incident_path(incident), method: :get, class: 'btn btn-success')
+    elsif incident.closed_or_solved?
+      link << link_to('Resolver Requisição', edit_incident_path(incident), class: 'btn btn-success disabled')
     end
 
     safe_join(link)

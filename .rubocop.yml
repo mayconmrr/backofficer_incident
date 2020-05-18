@@ -1,6 +1,9 @@
 require:
   - rubocop-rails
 
+Documentation:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: true
   Max: 120
@@ -21,11 +24,27 @@ Rails/BulkChangeTable:
 Metrics/MethodLength:
   Exclude:
     - db/migrate/*
+    - app/helpers/incident_helper.rb
+    - app/controllers/incidents_controller.rb
 
 Metrics/AbcSize:
   Exclude:
     - db/migrate/20180208171233_create_incidents.rb
+    - app/controllers/incidents_controller.rb
 
 Metrics/ClassLength:
   Exclude:
-    - app/controllers/incidents_controllers.rb
+    - app/controllers/incidents_controller.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/production.rb
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - app/helpers/incident_helper.rb
+    - app/controllers/incidents_controller.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - app/controllers/incidents_controller.rb
