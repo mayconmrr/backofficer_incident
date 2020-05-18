@@ -6,10 +6,10 @@
       <th>Email do Usuário</th>
       <th>Número do Contrato</th>
       <th>Nome do Usuário</th>
-      <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
+      <% if @incident.closed_or_solved? %>
         <th>Escopo do Problema</th>
         <th>Tipo do Erro</th>
-      <% elsif @incident.status == Status::REOPENED %>
+      <% elsif @incident.reopened? %>
         <th><span class='label label-danger'>Motivo da Reabertura</span></th>
     <% end %>
     </tr>
@@ -20,10 +20,10 @@
         <td><%= @incident.user_email %></td>
         <td><%= @incident.contract_id %></td>
         <td><%= @incident.user_name %></td>
-        <% if @incident.status == Status::SOLVED || @incident.status == Status::CLOSED %>
-          <td><%= @incident.problem_kind %></td>
-          <td><%= @incident.entity %></td>
-        <% elsif @incident.status == Status::REOPENED %>
+        <% if @incident.closed_or_solved? %>
+          <td><%= t("enumeration.problem_kind.#{@incident.problem_kind}") %></td>
+          <td><%= t("enumeration.problem_kind.#{@incident.entity}") %></td>
+        <% elsif @incident.reopened? %>
           <td><%= @incident.reopening_description %></td>
         <% end %>
       </tr>

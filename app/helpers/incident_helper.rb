@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module IncidentHelper
-  def value_for(incident, attribute)
+  def value_with_label_for(incident, attribute)
     attribute_value = incident.send(attribute)
     return_label_method = "return_#{attribute}_label"
 

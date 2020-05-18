@@ -20,10 +20,10 @@
           <td><%= @incident.id %></td>
           <td><%= @incident.title %></td>
           <td><%= @incident.user_email %></td>
-          <td><%= @incident.priority_level %></td>
+          <td><%= raw value_with_label_for(@incident, 'priority_level') %></td>
           <td><%= @incident.backofficer.name %></td>
           <td><%= brazil_date(@incident.created_at)  %></td>
-          <td><%= @incident.status %></td>
+          <td><%= raw value_with_label_for(@incident, 'status') %></td>
         </tr>
         </tbody>
       </table>
@@ -52,8 +52,8 @@
           <div class="centered">
             <h4>Análise</h4>
             <!-- solution -->
-            <% if @incident.status == Status::PENDING%>
-              <%= @incident.pending_description %>
+            <% if @incident.pending? %>
+              <%= t("enumerations.#{@incident.pending_description}") %>
             <% else %>
               <%= @incident.solution_description %>
             <% end %>
