@@ -54,6 +54,10 @@ class Incident < ApplicationRecord
     analysing? || pending?
   end
 
+  def reopened_or_pending?
+    reopened? || pending?
+  end
+
   private
 
   def solve_params
