@@ -16,6 +16,7 @@ gem 'coffee-rails'
 gem 'devise'
 gem 'devise-i18n'
 gem 'enumerate_it'
+gem 'faker'
 gem 'figaro'
 gem 'jbuilder'
 gem 'jquery-rails'
@@ -42,7 +43,6 @@ end
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end
