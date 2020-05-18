@@ -53,7 +53,7 @@ module IncidentHelper
   end
 
   def current_action_name
-    return 'index' if action_name == ('my_incidents' || 'search')
+    return 'index' if ['my_incidents', 'search'].include?(action_name)
 
     action_name
   end
