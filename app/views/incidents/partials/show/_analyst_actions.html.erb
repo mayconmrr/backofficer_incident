@@ -1,4 +1,4 @@
-<% if !@incident.pending? %>
+<% if !@incident.reopened_or_pending? %>
   <%= link_to 'Iniciar Análise', incident_analyse_path(@incident), method: :patch, class: "btn btn-danger #{disable_solve_button?(@incident)}" %>
 <% end %>
 
