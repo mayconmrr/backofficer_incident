@@ -27,7 +27,7 @@ gem 'paperclip-i18n'
 gem 'pg'
 gem 'pry'
 gem 'pry-rails'
-gem 'puma'
+gem "puma", ">= 4.3.5"
 gem 'rails-i18n'
 gem 'sass-rails'
 gem 'time_difference'
