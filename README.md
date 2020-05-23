@@ -1,7 +1,7 @@
 # Backofficer Incident
 Software to control internal company incidents.
 
-As `bacofficer`, is possible to set the urgency and to add information to a specific incident.
+As `backofficer`, is possible to set the urgency and to add information to a specific incident.
 ```
 email: backofficer@company.com
 password: backofficer_pass
